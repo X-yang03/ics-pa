@@ -84,6 +84,36 @@ static int cmd_info(char* args){
 }
 
 
+
+static int cmd_x(char *args){
+	char *arg = strtok(NULL," ");
+	if(arg == NULL){
+	printf("Illegal parameters.\n");
+	return 0;
+	}
+	int N = atoi(arg);
+	printf("N : %d\n",N);
+	arg = strtok(NULL," ");
+	if(arg == NULL){
+	printf("Illegal Parameters.\n");
+	return 0;
+	}
+	vaddr_t addr = atoi(arg); //vaddr_t is actually uint32_t
+
+	printf("addr : %x\n", addr);
+	for (int i=0;i<N;i++){
+		uint32_t data = vaddr_read(addr+4*i,4);
+		printf("%x : \n",addr+4*i);
+		for(int j=0;j<4;j++){
+			printf("%x",data&0xff);
+			data = data >> 8 ;
+		}
+		printf("\n");
+	
+	}
+	return 0;
+}
+
 static struct { // a func table [name,dis,handler]
   char *name;
   char *description;
@@ -94,7 +124,7 @@ static struct { // a func table [name,dis,handler]
   { "q", "Exit NEMU", cmd_q },
   { "si", "Use si N to run N instructions", cmd_si},
   { "info", "info r to show the status of regfile; info w to show the status of watchpoints" , cmd_info},
-
+  { "x" ,"Usage: x N EXPR to see the contents of RAM from EXPR" , cmd_x},
   /* TODO: Add more commands */
 
 };
