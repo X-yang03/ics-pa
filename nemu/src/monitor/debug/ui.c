@@ -91,16 +91,19 @@ static int cmd_x(char *args){
 	printf("Illegal parameters.\n");
 	return 0;
 	}
-	int N = atoi(arg);
+	int N = atoi(arg);  //string to int
 	printf("N : %d\n",N);
 	arg = strtok(NULL," ");
 	if(arg == NULL){
 	printf("Illegal Parameters.\n");
 	return 0;
 	}
-	vaddr_t addr = atoi(arg); //vaddr_t is actually uint32_t
+  vaddr_t addr;
+  sscanf(arg,"%16x",&addr);
 
-	printf("addr : %x\n", addr);
+	//vaddr_t addr = atoi(arg); //vaddr_t is actually uint32_t
+
+	printf("addr : %16x\n", addr);
 	for (int i=0;i<N;i++){
 		uint32_t data = vaddr_read(addr+4*i,4);
 		printf("%x : \n",addr+4*i);
