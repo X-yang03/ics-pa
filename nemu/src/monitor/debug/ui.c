@@ -103,7 +103,7 @@ static int cmd_x(char *args){
 
 	//vaddr_t addr = atoi(arg); //vaddr_t is actually uint32_t
 
-	printf("addr : 0x%16x\n", addr);
+	printf("addr : 0x%x\n", addr);
 	for (int i=0;i<N;i++){
 		uint32_t data = vaddr_read(addr+4*i,4);
 		printf("%x : \n",addr+4*i);
