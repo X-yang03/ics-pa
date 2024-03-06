@@ -41,8 +41,9 @@ static int cmd_help(char *args);
 static int cmd_si(char *args){
 	char *si_num = strtok(NULL," ");
 	if(si_num == NULL){
-	printf("arguments error.\n");
-
+	printf("Illegal number of parameters.\n");
+	printf("Check help si to see the Usage.\n");
+	return -1;
 	}
 	int num = atoi(si_num);
 	cpu_exec(num);
@@ -54,6 +55,7 @@ static int cmd_si(char *args){
 
 static int cmd_info(char* args){
 	char *arg = strtok(NULL," ");
+	
 	if(strcmp(arg,"r") == 0){
 	printf("eax : %x\n" , cpu.eax);	
 	printf("ecx : %x\n" , cpu.ecx);
@@ -68,6 +70,10 @@ static int cmd_info(char* args){
 	}
 	else if(strcmp(arg,"w") == 0){
 	//Todo: print watchpoint
+	}
+	else{
+	printf("Illegal parameters.\n");
+	return -1;
 	}
 	return 0;
 }
