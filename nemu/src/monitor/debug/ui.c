@@ -56,6 +56,11 @@ static int cmd_si(char *args){
 static int cmd_info(char* args){
 	char *arg = strtok(NULL," ");
 	
+	if(arg == NULL){
+	printf("Illegal number of parameters.\n");
+	printf("Check help info to see the Usage.\n");
+	return 0;
+	}
 	if(strcmp(arg,"r") == 0){
 	printf("eax : %x\n" , cpu.eax);	
 	printf("ecx : %x\n" , cpu.ecx);
