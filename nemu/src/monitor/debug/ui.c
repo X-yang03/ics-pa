@@ -43,7 +43,7 @@ static int cmd_si(char *args){
 	if(si_num == NULL){
 	printf("Illegal number of parameters.\n");
 	printf("Check help si to see the Usage.\n");
-	return -1;
+	return 0;
 	}
 	int num = atoi(si_num);
 	cpu_exec(num);
@@ -73,7 +73,7 @@ static int cmd_info(char* args){
 	}
 	else{
 	printf("Illegal parameters.\n");
-	return -1;
+	return 0;
 	}
 	return 0;
 }
