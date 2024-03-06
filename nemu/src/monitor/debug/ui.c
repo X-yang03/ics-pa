@@ -18,10 +18,10 @@ char* rl_gets() {
     line_read = NULL;
   }
 
-  line_read = readline("(nemu) ");
+  line_read = readline("(nemu) "); // start with (nemu)
 
   if (line_read && *line_read) {
-    add_history(line_read);
+    add_history(line_read); // cmd history
   }
 
   return line_read;
@@ -38,7 +38,42 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
-static struct {
+static int cmd_si(char *args){
+	char *si_num = strtok(NULL," ");
+	if(si_num == NULL){
+	printf("arguments error.\n");
+
+	}
+	int num = atoi(si_num);
+	cpu_exec(num);
+	printf("Successfully run %d instructions!\n",num);
+	return 0;
+	
+}
+
+
+static int cmd_info(char* args){
+	char *arg = strtok(NULL," ");
+	if(strcmp(arg,"r") == 0){
+	printf("eax : %x\n" , cpu.eax);	
+	printf("ecx : %x\n" , cpu.ecx);
+	printf("edx : %x\n" , cpu.edx);
+	printf("ebx : %x\n" , cpu.ebx);
+	printf("esp : %x\n" , cpu.esp);
+	printf("ebp : %x\n" , cpu.ebp);
+	printf("esi : %x\n" , cpu.esi);
+	printf("edi : %x\n" , cpu.edi);
+	printf("===================\n");
+
+	}
+	else if(strcmp(arg,"w") == 0){
+	//Todo: print watchpoint
+	}
+	return 0;
+}
+
+
+static struct { // a func table [name,dis,handler]
   char *name;
   char *description;
   int (*handler) (char *);
@@ -46,6 +81,8 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+  { "si", "Use si N to run N instructions", cmd_si},
+  { "info", "info r to show the status of regfile; info w to show the status of watchpoints" , cmd_info},
 
   /* TODO: Add more commands */
 
