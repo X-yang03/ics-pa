@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ
+  TK_NOTYPE = 256, TK_EQ, TK_DEC,TK_REG
 
   /* TODO: Add more token types */
 
@@ -24,7 +24,18 @@ static struct rule {
 
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
-  {"==", TK_EQ}         // equal
+  {"==", TK_EQ},         // equal
+  {"([1-9][0-9]*|0)",TK_DEC}, //decimial
+  {"\\-",'-'},
+  {"\\*",'*'},
+  {"\\/",'/'},
+  {"\\(",'('},
+  {"\\)",')'},
+  {"\\$e[abcd]x",TK_REG},
+  {"\\$e[bs]p",TK_REG},
+  {"\\$e[sd]i",TK_REG},
+  {"\\$eip",TK_REG}
+
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -96,7 +107,13 @@ static bool make_token(char *e) {
   return true;
 }
 
+uint32_t eval(int p , int q)
+{
+  return 0;
+}
+
 uint32_t expr(char *e, bool *success) {
+
   if (!make_token(e)) {
     *success = false;
     return 0;
