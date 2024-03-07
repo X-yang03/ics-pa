@@ -174,7 +174,7 @@ int dominant_op(int p , int q){ // find dominant operator between p and q
 
     }
   }
-  printf("%d\n",_dominant);
+  //printf("%d\n",_dominant);
   return _dominant;
 
 }
@@ -221,12 +221,10 @@ uint32_t eval(int p , int q) // tokens[p] and tokens[q] NOT CHARACTER[p] AND CHA
     switch (tokens[op].type)
     {
     case TK_ADD:
-      printf("%d,%d\n",val1,val2);
       return val1 + val2;
     case TK_SUB:
       return val1 - val2;
     case TK_MUL:
-      printf("%d,%d\n",val1,val2);
       return val1 * val2;
     case TK_DIV:
       return val1 / val2;
