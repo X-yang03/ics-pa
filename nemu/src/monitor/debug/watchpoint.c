@@ -31,9 +31,45 @@ WP* new_wp(){
 }
 
 
-void free_wp(WP* wp){
+void free_wp(int N){
+  Assert(head != NULL, "Empty watch points!\n");
+  WP* wp = head;
+  WP* prec = NULL;  // once freed wp, need to connect prec and wp->next
+  while(head->NO != N){
+    prec = wp;
+    wp = wp->next;
+  }
+  if(wp == NULL){
+    printf("Invalid NO!\n");
+    return;
+  }
+  if(prec != NULL)  prec->next = wp->next;  // reconnect the link list
   wp->next = free_;
   free_ = wp;
+  
 }
 
+void show_wp(){
+  if(head == NULL){
+    printf("Empty watch points!\n");
+    return;
+  }
+  printf("NO\t\tExpr\t\tVal\n");
+  WP* wp = head;
+  while(wp != NULL){
+    printf("%02d\t\t%32s\t\t%10u\n",wp->NO,wp->expr,wp->val);
+    wp = wp->next;
+  }
+}
 
+bool wp_changed(){
+  WP* wp = head;
+  while(wp != NULL){
+    bool succ = true;
+    uint32_t curr_val = expr(wp->expr,&succ);
+    if(curr_val != wp->val)
+      return true;
+    wp = wp->next;
+  }
+  return false;
+}

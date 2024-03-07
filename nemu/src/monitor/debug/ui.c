@@ -11,7 +11,8 @@ void cpu_exec(uint64_t);
 void init_regex();
 uint32_t expr(char *e, bool *success);
 WP* new_wp();
-void free_wp(WP* wp);
+void free_wp(int NO);
+void show_wp();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -79,6 +80,7 @@ static int cmd_info(char* args){
 	}
 	else if(strcmp(arg,"w") == 0){
 	//Todo: print watchpoint
+    show_wp();
 	}
 	else{
 	printf("Illegal parameters.\n");
@@ -163,7 +165,18 @@ static int cmd_w(char* args){
   WP* wp = new_wp();
   strcpy(wp->expr,args);
   wp->val = res;
-  
+  printf("Successfully inserted a watch point %d!\n",wp->NO);
+  return 0;
+}
+
+static int cmd_d(char *args){
+  if(args == NULL){
+    printf("N cannot be empty!\n");
+    return 1;
+  }
+  int NO = atoi(args);
+  free_wp(NO);
+  printf("Successfully deleted watch point %d\n!",NO);
   return 0;
 }
 
@@ -180,6 +193,7 @@ static struct { // a func table [name,dis,handler]
   { "x" ,"Usage: x N EXPR to see the contents of RAM from EXPR" , cmd_x},
   {"p","Calculate the value of a expression",cmd_p},
   {"w","Usage: w expr -- set a watch point over a expression",cmd_w},
+  {"d","Usage:d N -- delete watch point with NO N",cmd_d},
   /* TODO: Add more commands */
 
 };
