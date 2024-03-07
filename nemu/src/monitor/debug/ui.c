@@ -115,7 +115,7 @@ static int cmd_x(char *args){
 		uint32_t data = vaddr_read(addr+4*i,4);
 		printf("0x%x :\t",addr+4*i);
 		for(int j=0;j<4;j++){
-			printf("%2x ",data&0xff);
+			printf("%02x ",data&0xff);
 			data = data >> 8 ;
 		}
 		printf("\n");
