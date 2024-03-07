@@ -226,6 +226,7 @@ uint32_t eval(int p , int q) // tokens[p] and tokens[q] NOT CHARACTER[p] AND CHA
     case TK_SUB:
       return val1 - val2;
     case TK_MUL:
+      printf("%d,%d\n",val1,val2);
       return val1 * val2;
     case TK_DIV:
       return val1 / val2;
