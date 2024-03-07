@@ -87,7 +87,7 @@ static int cmd_info(char* args){
 
 static int cmd_x(char *args){
 	char *arg = strtok(NULL," ");
-  printf("%s\n%s",args,arg);
+  printf("%s\n%s\n",args,arg);
 	if(arg == NULL){
 	printf("Illegal parameters.\n");
 	return 0;
