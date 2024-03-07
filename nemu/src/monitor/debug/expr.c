@@ -69,7 +69,7 @@ void init_regex() {
 typedef struct token {
   int type;
   int priority; // used to find dominant op
-  char str[32];
+  char str[32]; //every token should be no more than 32 char
 } Token;
 
 Token tokens[32]; // at most 32 tokens in a sentence
@@ -242,7 +242,10 @@ uint32_t eval(int p , int q) // tokens[p] and tokens[q] NOT CHARACTER[p] AND CHA
       return vaddr_read(val2,4);
     case TK_NOT:
       return val2 ? 0 : 1;
-
+    case TK_EQ:
+      return val1 == val2;
+    case TK_NEQ:
+      return val1 != val2;
 
     default:
       Assert(0,"Bad operation!\n");
