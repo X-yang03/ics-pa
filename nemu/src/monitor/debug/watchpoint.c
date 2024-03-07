@@ -65,12 +65,16 @@ void show_wp(){
 
 bool wp_changed(){
   WP* wp = head;
+  bool flag = false;
   while(wp != NULL){
     bool succ = true;
     uint32_t curr_val = expr(wp->expr,&succ);
-    if(curr_val != wp->val)
-      return true;
+    if(curr_val != wp->val){
+      flag = true;
+      wp->has_changed = true;
+    }
+      
     wp = wp->next;
   }
-  return false;
+  return flag;
 }
