@@ -110,6 +110,7 @@ static bool make_token(char *e) {
             //KISS protocol
             printf("%s %d\n",substr_start,substr_len);
             strncpy(substr_start,tokens[nr_token].str,substr_len);  //copy the string
+            printf("%s\n",tokens[nr_token].str);
             break;
 
           default: break;
