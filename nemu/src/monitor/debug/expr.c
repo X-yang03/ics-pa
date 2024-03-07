@@ -206,17 +206,15 @@ uint32_t eval(int p , int q) // tokens[p] and tokens[q] NOT CHARACTER[p] AND CHA
 
   }
   else if(check_parentheses(p,q)){
-    eval(p+1,q-1);
+    return eval(p+1,q-1);
   }
   else{
     int op = dominant_op(p,q);
     int val1 = eval(p,op-1);
     int val2 = eval(op+1,q);
-    printf("%d %d\n",val1,val2);
     switch (tokens[op].type)
     {
     case '+':
-      printf("%d\n",val1+val2);
       return val1 + val2;
       break;
     case '-':
