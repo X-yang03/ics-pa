@@ -216,8 +216,10 @@ uint32_t eval(int p , int q) // tokens[p] and tokens[q] NOT CHARACTER[p] AND CHA
   }
   else{
     int op = dominant_op(p,q);
-    uint32_t val1 = eval(p,op-1); // if op is - * !, val1 is the operator
-    uint32_t val2 = eval(op+1,q);
+    uint32_t val1 = 0 ,val2 = 0;
+    if (tokens[op].type > TK_NOT )
+      val1 = eval(p,op-1); // if op is - * !, val1 is the operator
+    val2 = eval(op+1,q);
     switch (tokens[op].type)
     {
     case TK_ADD:
