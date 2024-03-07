@@ -100,12 +100,13 @@ static bool make_token(char *e) {
         
         tokens[nr_token].type = rules[i].token_type;
         
-        if(tokens[i].type == TK_MUL && ( i == 0 ||(tokens[i-1].type != TK_DEC && 
-            tokens[i].type!= TK_HEX && tokens[i-1].type != TK_REG && tokens[i-1].type != ')')))
-            tokens[i].type = TK_PTR;
-        if(tokens[i].type == TK_SUB && ( i == 0 ||(tokens[i-1].type != TK_DEC && 
-            tokens[i].type!= TK_HEX && tokens[i-1].type != TK_REG && tokens[i-1].type != ')')))
-            tokens[i].type = TK_MINUS;
+        if(tokens[nr_token].type == TK_MUL && ( nr_token == 0 ||(tokens[nr_token-1].type != TK_DEC && 
+            tokens[nr_token].type!= TK_HEX && tokens[nr_token-1].type != TK_REG && tokens[nr_token-1].type != ')')))
+            tokens[nr_token].type = TK_PTR;
+
+        if(tokens[nr_token].type == TK_SUB && ( nr_token == 0 ||(tokens[nr_token-1].type != TK_DEC && 
+            tokens[nr_token].type!= TK_HEX && tokens[nr_token-1].type != TK_REG && tokens[nr_token-1].type != ')')))
+            tokens[nr_token].type = TK_MINUS;
 
         tokens[nr_token].priority = tokens[nr_token].type; 
         //type is ordered by priority!
