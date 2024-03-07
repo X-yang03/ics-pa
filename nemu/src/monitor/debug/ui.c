@@ -121,7 +121,6 @@ static int cmd_x(char *args){
 
 
 static int cmd_p(char *args){
-  printf("This is a expression!\n");
   if(args == NULL){
     printf("Empty Expression!\n");
     return 1;

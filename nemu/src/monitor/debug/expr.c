@@ -108,7 +108,7 @@ static bool make_token(char *e) {
           case TK_DEC: case TK_HEX: case TK_REG:
             Assert(substr_len<32,"Length of numbers should be no more than 31!\n");
             //KISS protocol
-            printf("%s\n",substr_start);
+            printf("%s %d\n",substr_start,substr_len);
             strncpy(substr_start,tokens[nr_token].str,substr_len);  //copy the string
             break;
 
