@@ -168,7 +168,6 @@ int dominant_op(int p , int q){ // find dominant operator between p and q
 
     }
   }
-  printf("%d\n",_dominant);
   return _dominant;
 
 }
