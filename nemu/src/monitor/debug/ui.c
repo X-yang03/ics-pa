@@ -97,8 +97,8 @@ static int cmd_x(char *args){
 
 	int N = atoi(arg);  //string to int
 
-  printf("%s %s\n",args,arg);
 	arg = strtok(NULL," ");
+  printf("%s %s\n",args,arg);
 	if(arg == NULL){
 	printf("Illegal Parameters.\n");
 	return 0;
