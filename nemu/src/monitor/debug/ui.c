@@ -104,7 +104,7 @@ static int cmd_x(char *args){
 	}
 
   bool succ = true;
-  vaddr_t addr = expr(args,&succ);
+  vaddr_t addr = expr(arg,&succ);
   if(!succ)
   {
     printf("Invalid Expression!\n");
