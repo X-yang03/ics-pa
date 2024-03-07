@@ -87,6 +87,7 @@ static int cmd_info(char* args){
 
 static int cmd_x(char *args){
 	char *arg = strtok(NULL," ");
+  printf("%s\n%s",args,arg);
 	if(arg == NULL){
 	printf("Illegal parameters.\n");
 	return 0;
@@ -117,6 +118,11 @@ static int cmd_x(char *args){
 	return 0;
 }
 
+
+static int cmd_expr(char *args){
+  return 0 ;
+}
+
 static struct { // a func table [name,dis,handler]
   char *name;
   char *description;
@@ -128,6 +134,7 @@ static struct { // a func table [name,dis,handler]
   { "si", "Use si N to run N instructions", cmd_si},
   { "info", "info r to show the status of regfile; info w to show the status of watchpoints" , cmd_info},
   { "x" ,"Usage: x N EXPR to see the contents of RAM from EXPR" , cmd_x},
+  {"expr","Calculate the value of a expression",cmd_expr},
   /* TODO: Add more commands */
 
 };

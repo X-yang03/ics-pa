@@ -238,6 +238,12 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
+  int par = 0;
+  for(int i =0; i < nr_token; i++){
+    if(tokens[i].type == '(') par++;
+    else if(tokens[i].type == ')') par--;
+  }
+  Assert(par == 0 , "Unmatched Parentheses!\n");
 
   return eval(0,nr_token-1);
   /* TODO: Insert codes to evaluate the expression. */
