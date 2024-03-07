@@ -93,13 +93,19 @@ static int cmd_x(char *args){
 	printf("Illegal parameters.\n");
 	return 0;
 	}
+
+
 	int N = atoi(arg);  //string to int
-	printf("N : %d\n",N);
+
+  printf("%s %s\n",args,arg);
 	arg = strtok(NULL," ");
 	if(arg == NULL){
 	printf("Illegal Parameters.\n");
 	return 0;
 	}
+
+  
+
   vaddr_t addr;
   sscanf(arg,"%16x",&addr);
 
