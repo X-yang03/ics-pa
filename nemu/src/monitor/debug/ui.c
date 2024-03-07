@@ -8,6 +8,8 @@
 #include <readline/history.h>
 
 void cpu_exec(uint64_t);
+void init_regex();
+uint32_t expr(char *e, bool *success);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -120,6 +122,22 @@ static int cmd_x(char *args){
 
 static int cmd_p(char *args){
   printf("This is a expression!\n");
+  if(args == NULL){
+    printf("Empty Expression!\n");
+    return 1;
+  }
+  init_regex();
+  bool succ = true;
+  int res = expr(args,&succ);
+  if(succ){
+    printf("Result: %d\n",res);
+  }
+  else
+  {
+    printf("Invalid Expression!\n");
+  }
+  
+
   return 0 ;
 }
 
