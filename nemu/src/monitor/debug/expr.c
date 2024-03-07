@@ -8,8 +8,9 @@
 #include<stdlib.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,TK_NEQ, TK_DEC,TK_HEX,TK_REG
-
+  TK_NOTYPE = 256, TK_DEC, TK_HEX, TK_REG, TK_MINUS, TK_PTR, TK_NOT, TK_DIV, 
+  TK_MUL, TK_ADD, TK_SUB, TK_EQ, TK_NEQ, TK_AND, TK_OR 
+  // Ordered by priority
   /* TODO: Add more token types */
 
 };
@@ -24,16 +25,19 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
+  {"\\+", TK_ADD},         // plus
   {"==", TK_EQ},         // equal
   {"!=",TK_NEQ},
   {"0[xX][0-9a-fA-F]+",TK_HEX},
   {"[1-9][0-9]*|0",TK_DEC}, //decimial
-  {"\\-",'-'},
-  {"\\*",'*'},
-  {"\\/",'/'},
+  {"\\-",TK_SUB},
+  {"\\*",TK_MUL},   //mult or ptr
+  {"\\/",TK_DIV},
   {"\\(",'('},
   {"\\)",')'},
+  {"\\&\\&", TK_AND},
+  {"\\|\\|", TK_OR},
+  {"\\!", TK_NOT},
   {"\\$e[abcd]x",TK_REG},
   {"\\$e[bs]p",TK_REG},
   {"\\$e[sd]i",TK_REG},
@@ -95,22 +99,24 @@ static bool make_token(char *e) {
          */
         
         tokens[nr_token].type = rules[i].token_type;
-        tokens[nr_token].priority = -1;
+        
+        if(tokens[i].type == TK_MUL && ( i == 0 ||  
+          (tokens[i-1].type != TK_DEC && tokens[i].type!= TK_HEX && tokens[i-1].type != TK_REG)))
+            tokens[i].type = TK_PTR;
+        if(tokens[i].type == TK_SUB && ( i == 0 ||
+          (tokens[i-1].type != TK_DEC && tokens[i].type!= TK_HEX && tokens[i-1].type != TK_REG)))
+            tokens[i].type = TK_MINUS;
+
+        tokens[nr_token].priority = tokens[nr_token].type; 
+        //type is ordered by priority!
 
         switch (rules[i].token_type) {
-          case '+': case '-':  
-            tokens[nr_token].priority = 1;
-            break;
-
-          case '*': case '/':
-              tokens[nr_token].priority = 2;
-            break;
 
           case TK_DEC: case TK_HEX: case TK_REG:
             Assert(substr_len<32,"Length of numbers should be no more than 31!\n");
             //KISS protocol
             strncpy(tokens[nr_token].str,substr_start,substr_len);  //copy the string
-            
+            tokens[nr_token].priority = -1; // priority for dec hex and reg
             break;
 
           default: break;
@@ -151,14 +157,14 @@ bool check_priority(int p, int q){
 
 int dominant_op(int p , int q){ // find dominant operator between p and q
   int in_parentheses = 0;
-  int min_priority = 10;
+  int min_priority = 0;
   int _dominant = 0;
   for(int i = p; i <= q; i++){
     if(tokens[i].type == '(') in_parentheses++;
     else if (tokens[i].type == ')') in_parentheses--;
 
     if(in_parentheses == 0 && tokens[i].priority != -1){ // with no parentheses
-        if(tokens[i].priority < min_priority){
+        if(tokens[i].priority > min_priority){
           min_priority = tokens[i].priority;
           _dominant = i;
         }
@@ -209,22 +215,31 @@ uint32_t eval(int p , int q) // tokens[p] and tokens[q] NOT CHARACTER[p] AND CHA
   }
   else{
     int op = dominant_op(p,q);
-    int val1 = eval(p,op-1);
-    int val2 = eval(op+1,q);
+    uint32_t val1 = eval(p,op-1); // if op is - * !, val1 is the operator
+    uint32_t val2 = eval(op+1,q);
     switch (tokens[op].type)
     {
-    case '+':
+    case TK_ADD:
       return val1 + val2;
-      break;
-    case '-':
+    case TK_SUB:
       return val1 - val2;
-      break;
-    case '*':
+    case TK_MUL:
       return val1 * val2;
-      break;
-    case '/':
+    case TK_DIV:
       return val1 / val2;
-      break;
+    case TK_AND:
+      return val1 && val2;
+    case TK_OR:
+      return val1 || val2;
+
+    case TK_MINUS: //val1 is '-'
+      return -val2;
+    case TK_PTR: // val1 is '*' , val2 is address
+      return vaddr_read(val2,4);
+    case TK_NOT:
+      return val2 ? 0 : 1;
+
+
     default:
       Assert(0,"Bad operation!\n");
       break;
@@ -244,6 +259,7 @@ uint32_t expr(char *e, bool *success) {
   for(int i =0; i < nr_token; i++){
     if(tokens[i].type == '(') par++;
     else if(tokens[i].type == ')') par--;
+    if(par < 0 ) break; // e.g. (1+2)))((+4
   }
   if(par != 0 ){
     *success = false;
