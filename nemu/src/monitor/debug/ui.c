@@ -103,10 +103,12 @@ static int cmd_x(char *args){
 	return 0;
 	}
 
-  
-
-  vaddr_t addr;
-  sscanf(arg,"%16x",&addr);
+  bool succ = true;
+  vaddr_t addr = expr(args,&succ);
+  if(!succ)
+  {
+    printf("Invalid Expression!\n");
+  }
 
 	//vaddr_t addr = atoi(arg); //vaddr_t is actually uint32_t
 
