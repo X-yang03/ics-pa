@@ -27,8 +27,8 @@ static struct rule {
   {"\\+", '+'},         // plus
   {"==", TK_EQ},         // equal
   {"!=",TK_NEQ},
-  {"[1-9][0-9]*|0",TK_DEC}, //decimial
   {"0[xX][0-9a-fA-F]+",TK_HEX},
+  {"[1-9][0-9]*|0",TK_DEC}, //decimial
   {"\\-",'-'},
   {"\\*",'*'},
   {"\\/",'/'},
