@@ -10,6 +10,8 @@
 void cpu_exec(uint64_t);
 void init_regex();
 uint32_t expr(char *e, bool *success);
+WP* new_wp();
+void free_wp(WP* wp);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -108,14 +110,13 @@ static int cmd_x(char *args){
   if(!succ)
   {
     printf("Invalid Expression!\n");
+    return 1;
   }
 
 	//vaddr_t addr = atoi(arg); //vaddr_t is actually uint32_t
-
-	printf("0x%x:\t\n", addr); //convert string 0x---- to addr
 	for (int i=0;i<N;i++){
 		uint32_t data = vaddr_read(addr+4*i,4);
-		printf("0x%x :\t",addr+4*i);
+		printf("0x%08x :\t",addr+4*i);
 		for(int j=0;j<4;j++){
 			printf("%02x ",data&0xff);
 			data = data >> 8 ;
@@ -141,10 +142,29 @@ static int cmd_p(char *args){
   else
   {
     printf("Invalid Expression!\n");
+
   }
   
-
   return 0 ;
+}
+
+static int cmd_w(char* args){
+  if(args == NULL){
+    printf("Empty Expression!\n");
+    return 1;
+  }
+  bool succ = true;
+  int res = expr(args,&succ);
+  if(!succ)
+  {
+    printf("Invalid Expression!\n");
+    return 1;
+  }
+  WP* wp = new_wp();
+  strcpy(wp->expr,args);
+  wp->val = res;
+  
+  return 0;
 }
 
 static struct { // a func table [name,dis,handler]
@@ -159,6 +179,7 @@ static struct { // a func table [name,dis,handler]
   { "info", "info r to show the status of regfile; info w to show the status of watchpoints" , cmd_info},
   { "x" ,"Usage: x N EXPR to see the contents of RAM from EXPR" , cmd_x},
   {"p","Calculate the value of a expression",cmd_p},
+  {"w","Usage: w expr -- set a watch point over a expression",cmd_w},
   /* TODO: Add more commands */
 
 };
