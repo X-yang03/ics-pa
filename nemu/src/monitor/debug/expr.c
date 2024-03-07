@@ -221,6 +221,7 @@ uint32_t eval(int p , int q) // tokens[p] and tokens[q] NOT CHARACTER[p] AND CHA
     switch (tokens[op].type)
     {
     case TK_ADD:
+      printf("%d,%d\n",val1,val2);
       return val1 + val2;
     case TK_SUB:
       return val1 - val2;
