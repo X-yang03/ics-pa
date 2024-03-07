@@ -87,7 +87,6 @@ static int cmd_info(char* args){
 
 static int cmd_x(char *args){
 	char *arg = strtok(NULL," ");
-  printf("%s\n%s\n",args,arg);
 	if(arg == NULL){
 	printf("Illegal parameters.\n");
 	return 0;
@@ -120,6 +119,7 @@ static int cmd_x(char *args){
 
 
 static int cmd_expr(char *args){
+  printf("This is a expression!\n");
   return 0 ;
 }
 
@@ -196,6 +196,9 @@ void ui_mainloop(int is_batch_mode) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
         if (cmd_table[i].handler(args) < 0) { return; }
         break;
+      }
+      else{
+        cmd_expr(str);
       }
     }
 
