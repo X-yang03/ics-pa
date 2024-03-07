@@ -118,7 +118,7 @@ static int cmd_x(char *args){
 }
 
 
-static int cmd_expr(char *args){
+static int cmd_p(char *args){
   printf("This is a expression!\n");
   return 0 ;
 }
@@ -134,7 +134,7 @@ static struct { // a func table [name,dis,handler]
   { "si", "Use si N to run N instructions", cmd_si},
   { "info", "info r to show the status of regfile; info w to show the status of watchpoints" , cmd_info},
   { "x" ,"Usage: x N EXPR to see the contents of RAM from EXPR" , cmd_x},
-  {"expr","Calculate the value of a expression",cmd_expr},
+  {"p","Calculate the value of a expression",cmd_p},
   /* TODO: Add more commands */
 
 };
@@ -196,9 +196,6 @@ void ui_mainloop(int is_batch_mode) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
         if (cmd_table[i].handler(args) < 0) { return; }
         break;
-      }
-      else{
-        cmd_expr(str);
       }
     }
 
