@@ -109,7 +109,7 @@ static bool make_token(char *e) {
             Assert(substr_len<32,"Length of numbers should be no more than 31!\n");
             //KISS protocol
             printf("%s %d\n",substr_start,substr_len);
-            strncpy(substr_start,tokens[nr_token].str,substr_len);  //copy the string
+            strncpy(tokens[nr_token].str,substr_start,substr_len);  //copy the string
             printf("%s\n",tokens[nr_token].str);
             break;
 
