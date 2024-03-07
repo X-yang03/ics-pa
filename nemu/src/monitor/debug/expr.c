@@ -178,6 +178,7 @@ uint32_t eval(int p , int q) // tokens[p] and tokens[q] NOT CHARACTER[p] AND CHA
     switch (tokens[p].type)
     {
     case TK_DEC:
+      printf("%s : %d\n",tokens[p].str,atoi(tokens[p].str));
       return atoi(tokens[p].str);
       break;
     
@@ -243,7 +244,11 @@ uint32_t expr(char *e, bool *success) {
     if(tokens[i].type == '(') par++;
     else if(tokens[i].type == ')') par--;
   }
-  Assert(par == 0 , "Unmatched Parentheses!\n");
+  if(par != 0 ){
+    *success = false;
+    printf("Unmatched Parentheses!\n");
+    return 0;
+  }
 
   return eval(0,nr_token-1);
   /* TODO: Insert codes to evaluate the expression. */
