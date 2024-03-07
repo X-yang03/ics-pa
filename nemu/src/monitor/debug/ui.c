@@ -98,7 +98,6 @@ static int cmd_x(char *args){
 	int N = atoi(arg);  //string to int
 
 	arg = strtok(NULL," ");
-  printf("%s %s\n",args,arg);
 	if(arg == NULL){
 	printf("Illegal Parameters.\n");
 	return 0;
@@ -111,12 +110,12 @@ static int cmd_x(char *args){
 
 	//vaddr_t addr = atoi(arg); //vaddr_t is actually uint32_t
 
-	printf("addr : 0x%x\n", addr); //convert string 0x---- to addr
+	printf("0x%x:\t\n", addr); //convert string 0x---- to addr
 	for (int i=0;i<N;i++){
 		uint32_t data = vaddr_read(addr+4*i,4);
-		printf("%x : \n",addr+4*i);
+		printf("0x%x :\t",addr+4*i);
 		for(int j=0;j<4;j++){
-			printf("0x%x ",data&0xff);
+			printf("%x ",data&0xff);
 			data = data >> 8 ;
 		}
 		printf("\n");
