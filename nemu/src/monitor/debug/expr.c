@@ -241,8 +241,7 @@ uint32_t eval(int p , int q) // tokens[p] and tokens[q] NOT CHARACTER[p] AND CHA
     case TK_PTR: // val1 is '*' , val2 is address
       return vaddr_read(val2,4);
     case TK_NOT:
-      printf("%u\n",val2);
-      return val2 ? 0 : 1;
+      return !val2;
     case TK_EQ:
       return val1 == val2;
     case TK_NEQ:
