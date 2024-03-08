@@ -11,7 +11,6 @@ void init_wp_pool() {
   for (i = 0; i < NR_WP; i ++) {
     wp_pool[i].NO = i;
     wp_pool[i].next = &wp_pool[i + 1];
-    wp_pool[i].last_val = 0;
   }
   wp_pool[NR_WP - 1].next = NULL;
 
@@ -70,8 +69,11 @@ bool wp_changed(){
     bool succ = true;
     uint32_t curr_val = expr(wp->expr,&succ);
     if(curr_val != wp->val){
-      wp->last_val = wp->val;
       wp->val = curr_val;
+      if(!flag){
+        printf("changed watch points :\n");
+      }
+      printf("%d, ", wp->NO);
       flag = true;
     }
     wp = wp->next;
