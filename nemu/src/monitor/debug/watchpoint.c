@@ -60,7 +60,7 @@ void show_wp(){
   printf("NO\t\tExpr\t\tVal\n");
   WP* wp = head;
   while(wp != NULL){
-    printf("%2d\t\t%s\t\t%x(%u)\n",wp->NO,wp->expr,wp->val,wp->val);
+    printf("%2d\t\t%s\t\t0x%x(%u)\n",wp->NO,wp->expr,wp->val,wp->val);
     wp = wp->next;
   }
 }
@@ -72,11 +72,11 @@ bool wp_changed(){
     bool succ = true;
     uint32_t curr_val = expr(wp->expr,&succ);
     if(curr_val != wp->val){
-      wp->val = curr_val;
       if(!flag){
         printf("changed watch points :\n");
       }
-      printf("%d, ", wp->NO);
+      printf("%d : %u --> %u\n", wp->NO,wp->val,curr_val);
+      wp->val = curr_val;
       flag = true;
     }
     wp = wp->next;
