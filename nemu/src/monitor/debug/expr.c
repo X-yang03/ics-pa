@@ -149,13 +149,6 @@ bool check_parentheses(int p,int q){
   return false;
 }
 
-bool check_priority(int p, int q){
-    if(tokens[p].priority != -1 && tokens[q].priority != -1){
-      return tokens[p].priority - tokens[q].priority;
-    }
-    return false;
-}
-
 int dominant_op(int p , int q){ // find dominant operator between p and q
   int in_parentheses = 0;
   int min_priority = 0;
