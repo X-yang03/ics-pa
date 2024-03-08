@@ -60,7 +60,7 @@ void show_wp(){
   printf("NO\t\tExpr\t\tVal\n");
   WP* wp = head;
   while(wp != NULL){
-    printf("%2d\t\t%10s\t\t%10u\n",wp->NO,wp->expr,wp->val);
+    printf("%2d\t\t%s\t\t%x(%u)\n",wp->NO,wp->expr,wp->val,wp->val);
     wp = wp->next;
   }
 }
