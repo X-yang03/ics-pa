@@ -162,7 +162,7 @@ int dominant_op(int p , int q){ // find dominant operator between p and q
           min_priority = tokens[i].priority;
           _dominant = i;
         }
-        else if(tokens[i].priority == min_priority){
+        else if(tokens[i].priority == min_priority && tokens[i].priority > TK_NOT){ // for - * and ! , dominant operator is the most left one
           _dominant = i;
         }
 
