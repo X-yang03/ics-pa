@@ -44,8 +44,11 @@ void free_wp(int N){
     return;
   }
   if(prec != NULL)  prec->next = wp->next;  // reconnect the link list
+  else head = wp->next;
   wp->next = free_;
   free_ = wp;
+  memset(wp->expr,0,sizeof(char)*32);
+  wp->val = 0;
   
 }
 
