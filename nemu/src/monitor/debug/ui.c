@@ -89,6 +89,7 @@ static int cmd_info(char* args){
 
 
 static int cmd_x(char *args){
+  char *arg = strtok(NULL," ");
 	if(args == NULL){
 	printf("Illegal parameters.\n");
 	return 0;
@@ -96,7 +97,7 @@ static int cmd_x(char *args){
 
 	int N = atoi(args);  //string to int
 
-	char *arg = strtok(NULL," ");
+	arg = strtok(NULL," ");
 	if(arg == NULL){
 	printf("Illegal Parameters.\n");
 	return 0;
