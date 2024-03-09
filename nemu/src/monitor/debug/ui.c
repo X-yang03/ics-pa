@@ -80,7 +80,6 @@ static int cmd_info(char* args){
     show_wp();
 	}
 	else{
-  Log("Illegal parameters.\n");
 	printf("Illegal parameters.\n");
 	return 1;
 	}
