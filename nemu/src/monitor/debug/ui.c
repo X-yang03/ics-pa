@@ -11,7 +11,7 @@ void cpu_exec(uint64_t);
 void init_regex();
 uint32_t expr(char *e, bool *success);
 WP* new_wp();
-void free_wp(int NO);
+bool free_wp(int NO);
 void show_wp();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
@@ -172,8 +172,9 @@ static int cmd_d(char *args){
     return 1;
   }
   int NO = atoi(args);
-  free_wp(NO);
-  printf("Successfully deleted watch point %d\n!",NO);
+  bool succ = free_wp(NO);
+  if(succ) printf("Successfully deleted watch point %d\n!",NO);
+  else return 1;
   return 0;
 }
 

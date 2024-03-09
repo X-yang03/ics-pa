@@ -31,7 +31,7 @@ WP* new_wp(){
 }
 
 
-void free_wp(int N){
+bool free_wp(int N){
   Assert(head != NULL, "Empty watch points!\n");
   WP* wp = head;
   WP* prec = NULL;  // once freed wp, need to connect prec and wp->next
@@ -41,7 +41,7 @@ void free_wp(int N){
   }
   if(wp == NULL){
     printf("Invalid NO!\n");
-    return;
+    return false;
   }
   if(prec != NULL)  prec->next = wp->next;  // reconnect the link list
   else head = wp->next;
@@ -49,6 +49,7 @@ void free_wp(int N){
   free_ = wp;
   memset(wp->expr,0,sizeof(char)*32);
   wp->val = 0;
+  return true;
   
 }
 
