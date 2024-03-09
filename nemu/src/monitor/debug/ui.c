@@ -47,7 +47,7 @@ static int cmd_si(char *args){
 	if(args == NULL){
 	printf("Illegal number of parameters.\n");
 	printf("Check help si to see the Usage.\n");
-	return 0;
+	return 1;
 	}
 	int num = atoi(args);
 	cpu_exec(num);
