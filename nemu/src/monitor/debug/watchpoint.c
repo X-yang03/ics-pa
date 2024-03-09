@@ -73,7 +73,7 @@ bool wp_changed(){
     uint32_t curr_val = expr(wp->expr,&succ);
     if(curr_val != wp->val){
       if(!flag){
-        printf("changed watch points :\n");
+        printf("Reached watch points :\n");
       }
       printf("%d : %u --> %u\n", wp->NO,wp->val,curr_val);
       wp->val = curr_val;
