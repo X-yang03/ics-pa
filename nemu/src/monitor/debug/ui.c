@@ -44,13 +44,12 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_si(char *args){
-	char *si_num = strtok(NULL," ");
-	if(si_num == NULL){
+	if(args == NULL){
 	printf("Illegal number of parameters.\n");
 	printf("Check help si to see the Usage.\n");
 	return 0;
 	}
-	int num = atoi(si_num);
+	int num = atoi(args);
 	cpu_exec(num);
 	printf("Successfully run %d instructions!\n",num);
 	return 0;
@@ -59,14 +58,12 @@ static int cmd_si(char *args){
 
 
 static int cmd_info(char* args){
-	char *arg = strtok(NULL," ");
-	
-	if(arg == NULL){
+	if(args == NULL){
 	printf("Illegal number of parameters.\n");
 	printf("Check help info to see the Usage.\n");
 	return 0;
 	}
-	if(strcmp(arg,"r") == 0){
+	if(strcmp(args,"r") == 0){
 	printf("eax : %08x\n" , cpu.eax);	
 	printf("ecx : %08x\n" , cpu.ecx);
 	printf("edx : %08x\n" , cpu.edx);
@@ -78,13 +75,14 @@ static int cmd_info(char* args){
 	printf("===================\n");
 
 	}
-	else if(strcmp(arg,"w") == 0){
+	else if(strcmp(args,"w") == 0){
 	//Todo: print watchpoint
     show_wp();
 	}
 	else{
+  Log("Illegal parameters.\n");
 	printf("Illegal parameters.\n");
-	return 0;
+	return 1;
 	}
 	return 0;
 }
@@ -92,16 +90,14 @@ static int cmd_info(char* args){
 
 
 static int cmd_x(char *args){
-	char *arg = strtok(NULL," ");
-	if(arg == NULL){
+	if(args == NULL){
 	printf("Illegal parameters.\n");
 	return 0;
 	}
 
+	int N = atoi(args);  //string to int
 
-	int N = atoi(arg);  //string to int
-
-	arg = strtok(NULL," ");
+	char *arg = strtok(NULL," ");
 	if(arg == NULL){
 	printf("Illegal Parameters.\n");
 	return 0;
