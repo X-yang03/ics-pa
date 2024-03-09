@@ -35,7 +35,7 @@ bool free_wp(int N){
   Assert(head != NULL, "Empty watch points!\n");
   WP* wp = head;
   WP* prec = NULL;  // once freed wp, need to connect prec and wp->next
-  while(head->NO != N){
+  while(head->NO != N && wp!=NULL){
     prec = wp;
     wp = wp->next;
   }
