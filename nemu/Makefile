@@ -57,7 +57,7 @@ count:
 	find . -type f \( -name "*.h" -o -name "*.c" \) | xargs cat | wc -l
 
 cnt:
-	find . -type f \( -name "*.h" -o -name "*.c" \) | xargs cat | grep -v ^$ | wc -l
+	find . -type f \( -name "*.h" -o -name "*.c" \) | xargs cat | grep -v ^$$ | wc -l
 
 
 
