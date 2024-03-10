@@ -52,3 +52,13 @@ gdb: $(BINARY)
 
 clean: 
 	rm -rf $(BUILD_DIR)
+
+count:
+	find . -type f \( -name "*.c" -o -name "*.h" \) -exec cat {} + | wc -l
+
+cnt:
+	find . -type f \( -name "*.c" -o -name "*.h" \) -exec cat {} + | grep -Ev ^$ | wc -l
+
+
+
+
