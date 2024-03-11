@@ -58,6 +58,7 @@ count:
 
 cnt:
 	find . -type f \( -name "*.h" -o -name "*.c" \) | xargs cat | grep -v ^$$ | wc -l
+	
 
 
 
