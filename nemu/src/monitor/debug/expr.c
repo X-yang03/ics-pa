@@ -120,6 +120,7 @@ static bool make_token(char *e) {
             Assert(substr_len<32,"Length of numbers should be no more than 31!\n");
             //KISS protocol
             strncpy(tokens[nr_token].str,substr_start,substr_len);  //copy the string
+            tokens[nr_token].str[substr_len] = '\0';
             tokens[nr_token].priority = -1; // priority for dec hex and reg
             break;
 
