@@ -113,6 +113,7 @@ static int cmd_x(char *args){
 
 	//vaddr_t addr = atoi(arg); //vaddr_t is actually uint32_t
   printf("Bytes : \tLow ===> High\n");
+  
 	for (int i=0;i<N;i++){
 		uint32_t data = vaddr_read(addr+4*i,4);
 		printf("0x%08x :\t",addr+4*i);
