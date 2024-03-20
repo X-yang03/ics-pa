@@ -58,6 +58,9 @@ count:
 
 cnt:
 	find . -type f \( -name "*.h" -o -name "*.c" \) | xargs cat | grep -v ^$$ | wc -l
+
+cnt_lines:
+	@echo "Before Pa"
 	
 
 
