@@ -5,15 +5,16 @@ make_EHelper(mov) {
   print_asm_template2(mov);
 }
 
-make_EHelper(push) {//55 push eip
+make_EHelper(push) {//55 push ebp
   //TODO();
   rtl_push(&id_dest->val);  //val is the reg
   print_asm_template1(push);
 }
 
 make_EHelper(pop) {
-  TODO();
-
+  //TODO();
+  rtl_pop(&t0);
+  operand_write(id_dest,&t0);
   print_asm_template1(pop);
 }
 
