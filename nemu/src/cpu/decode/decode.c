@@ -68,9 +68,9 @@ static inline make_DopHelper(a) {
 /* XX: AL, AH, BL, BH, CL, CH, DL, DH
  * eXX: eAX, eCX, eDX, eBX, eSP, eBP, eSI, eDI
  */
-static inline make_DopHelper(r) {
+static inline make_DopHelper(r) {  
   op->type = OP_TYPE_REG;
-  op->reg = decoding.opcode & 0x7;
+  op->reg = decoding.opcode & 0x7; //lower 3 bits
   if (load_val) {
     rtl_lr(&op->val, op->reg, op->width);
   }
@@ -180,7 +180,7 @@ make_DHelper(I) {
   decode_op_I(eip, id_dest, true);
 }
 
-make_DHelper(r) {
+make_DHelper(r) { //push eip
   decode_op_r(eip, id_dest, true);
 }
 
