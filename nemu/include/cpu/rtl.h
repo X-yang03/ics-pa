@@ -19,7 +19,7 @@ static inline void rtl_li(rtlreg_t* dest, uint32_t imm) {
 #define c_xor(a, b) ((a) ^ (b))
 #define c_shl(a, b) ((a) << (b))
 #define c_shr(a, b) ((a) >> (b))
-#define c_sar(a, b) ((int32_t)(a) >> (b))
+#define c_sar(a, b) ((int32_t)(a) >> (b)) // signed right shift
 #define c_slt(a, b) ((int32_t)(a) < (int32_t)(b))
 #define c_sltu(a, b) ((a) < (b))
 
@@ -134,15 +134,22 @@ static inline void rtl_not(rtlreg_t* dest) {
   TODO();
 }
 
+//signed extension
 static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
-  TODO();
+  //TODO();
+  rtl_li(&t1,32-width*8);  //t1 = 32-width*8
+  rtl_shl(dest,src1,&t1);  //*dest = src1<<t1
+  rtl_sar(dest,dest,&t1);
+
 }
 
 static inline void rtl_push(const rtlreg_t* src1) {
   // esp <- esp - 4
   // M[esp] <- src1
-  TODO();
+  //TODO();
+  cpu.esp -= 4;
+  rtl_sm(&(cpu.esp),4,src1);
 }
 
 static inline void rtl_pop(rtlreg_t* dest) {

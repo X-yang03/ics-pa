@@ -23,10 +23,11 @@ make_EHelper(jmp_rm) {
   print_asm("jmp *%s", id_dest->str);
 }
 
-make_EHelper(call) {
+make_EHelper(call) { //define exec_call func
   // the target address is calculated at the decode stage
-  TODO();
-
+  //TODO();
+  decoding.is_jmp = 1;
+  rtl_push(eip);
   print_asm("call %x", decoding.jmp_eip);
 }
 
