@@ -48,22 +48,22 @@ make_group(gp1,
   /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
 make_group(gp2,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EMPTY, EMPTY, EMPTY)
+    EXW(shl,1), EX(shr), EMPTY, EXW(sar,1))
 
   /* 0xf6, 0xf7 */
 make_group(gp3,
-    EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EMPTY, EMPTY, EMPTY)
+    IDEX(test_I,test), EMPTY, EX(not), EX(neg),
+    EX(mul), EX(imul1), EX(div), EX(idiv))
 
   /* 0xfe */
 make_group(gp4,
-    EMPTY, EMPTY, EMPTY, EMPTY,
+    EMPTY, EXW(dec,1), EMPTY, EMPTY,
     EMPTY, EMPTY, EMPTY, EMPTY)
 
   /* 0xff */
 make_group(gp5,
-    EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EMPTY, EMPTY, EMPTY)
+    EX(inc), EX(dec), EX(call_rm), EX(call),
+    EX(jmp_rm), EMPTY, EX(push), EMPTY)
 
   /* 0x0f 0x01*/
 make_group(gp7,
@@ -77,9 +77,9 @@ opcode_entry opcode_table [512] = {
   /* 0x04 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x08 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x0c */	EMPTY, EMPTY, EMPTY, EX(2byte_esc),
-  /* 0x10 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x10 */	EMPTY, EMPTY, EMPTY, IDEX(E2G, adc),
   /* 0x14 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x18 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x18 */	EMPTY, IDEX(G2E, sbb), EMPTY, IDEX(E2G, sbb),
   /* 0x1c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x20 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x24 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -89,14 +89,14 @@ opcode_entry opcode_table [512] = {
   /* 0x34 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x38 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x3c */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x40 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x44 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x48 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x4c */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x50 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x54 */	EMPTY, IDEX(r,push), EMPTY, EMPTY,
-  /* 0x58 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x5c */	EMPTY, IDEX(r,pop), EMPTY, EMPTY,
+  /* 0x40 */	IDEX(r, inc), IDEX(r, inc), IDEX(r, inc), IDEX(r, inc),
+  /* 0x44 */	IDEX(r, inc), IDEX(r, inc), IDEX(r, inc), IDEX(r, inc),
+  /* 0x48 */	IDEX(r, dec), IDEX(r, dec), IDEX(r, dec), IDEX(r, dec),
+  /* 0x4c */	IDEX(r, dec), IDEX(r, dec), IDEX(r, dec), IDEX(r, dec),
+  /* 0x50 */	IDEX(r, push), IDEX(r, push), IDEX(r, push), IDEX(r, push),
+  /* 0x54 */	IDEX(r, push), IDEX(r, push), IDEX(r, push), IDEX(r, push),
+  /* 0x58 */	IDEX(r, pop), IDEX(r, pop), IDEX(r, pop), IDEX(r, pop),
+  /* 0x5c */	IDEX(r, pop), IDEX(r, pop), IDEX(r, pop), IDEX(r, pop),
   /* 0x60 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x64 */	EMPTY, EMPTY, EX(operand_size), EMPTY,
   /* 0x68 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -123,7 +123,7 @@ opcode_entry opcode_table [512] = {
   /* 0xbc */	IDEX(mov_I2r, mov), IDEX(mov_I2r, mov), IDEX(mov_I2r, mov), IDEX(mov_I2r, mov),
   /* 0xc0 */	IDEXW(gp2_Ib2E, gp2, 1), IDEX(gp2_Ib2E, gp2), EMPTY, EX(ret),
   /* 0xc4 */	EMPTY, EMPTY, IDEXW(mov_I2E, mov, 1), IDEX(mov_I2E, mov),
-  /* 0xc8 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0xc8 */	EMPTY, EX(leave), EMPTY, EMPTY,
   /* 0xcc */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xd0 */	IDEXW(gp2_1_E, gp2, 1), IDEX(gp2_1_E, gp2), IDEXW(gp2_cl2E, gp2, 1), IDEX(gp2_cl2E, gp2),
   /* 0xd4 */	EMPTY, EMPTY, EX(nemu_trap), EMPTY,
@@ -203,7 +203,7 @@ opcode_entry opcode_table [512] = {
   /* 0xf0 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xf4 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xf8 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0xfc */	EMPTY, EMPTY, EMPTY, EMPTY
+  /* 0xfc */	EMPTY, EMPTY, IDEXW(E, dec, 1), EMPTY
 };
 
 static make_EHelper(2byte_esc) {
