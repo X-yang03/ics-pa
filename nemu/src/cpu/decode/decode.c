@@ -40,7 +40,8 @@ static inline make_DopHelper(SI) {
    */
   //TODO();
   op->simm = instr_fetch(eip, op->width);
-
+  rtl_sext(&t0,&t0,op->width);
+  op->simm = t0;
   rtl_li(&op->val, op->simm);
 
 #ifdef DEBUG
@@ -197,7 +198,7 @@ make_DHelper(test_I) {
   decode_op_I(eip, id_src, true);
 }
 
-make_DHelper(SI2E) {
+make_DHelper(SI2E) { //signed imm to 
   assert(id_dest->width == 2 || id_dest->width == 4);
   decode_op_rm(eip, id_dest, true, NULL, false);
   id_src->width = 1;
