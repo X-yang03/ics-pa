@@ -4,6 +4,7 @@ make_EHelper(mov);
 make_EHelper(leave);
 make_EHelper(movzx);
 make_EHelper(movsx);
+make_EHelper(lea);
 
 make_EHelper(operand_size);
 
@@ -40,6 +41,8 @@ make_EHelper(ret);
 make_EHelper(jmp);
 make_EHelper(call_rm);
 make_EHelper(jmp_rm);
+make_EHelper(jcc);
 
 make_EHelper(push);
 make_EHelper(pop);
+make_EHelper(nop);
