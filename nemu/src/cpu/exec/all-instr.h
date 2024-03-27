@@ -5,6 +5,8 @@ make_EHelper(leave);
 make_EHelper(movzx);
 make_EHelper(movsx);
 make_EHelper(lea);
+make_EHelper(cwtl);
+make_EHelper(cltd);
 
 make_EHelper(operand_size);
 
