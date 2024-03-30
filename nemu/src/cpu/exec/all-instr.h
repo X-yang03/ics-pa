@@ -48,3 +48,6 @@ make_EHelper(jcc);
 make_EHelper(push);
 make_EHelper(pop);
 make_EHelper(nop);
+
+make_EHelper(in);
+make_EHelper(out);
