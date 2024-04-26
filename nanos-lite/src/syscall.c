@@ -10,7 +10,7 @@ _RegSet* sys_none(_RegSet *r){
 uintptr_t sys_write(uintptr_t fd,uintptr_t buf,uintptr_t len){
 
   if( fd == 1 || fd == 2){
-    Log("sys_write\n");
+    Log("sys_write len %d\n",len);
     for(int i = 0; i< len; i++){
       _putc(((char*)buf)[i]);
     }
