@@ -32,7 +32,6 @@ make_EHelper(mov_cr2r) {
 }
 
 make_EHelper(int) {
-  printf("base : %d\n",cpu.idtr.base);
   raise_intr(id_dest->val, decoding.seq_eip);
 
   print_asm("int %s", id_dest->str);
