@@ -25,7 +25,7 @@ _RegSet* sys_exit(_RegSet *r){
 
 _RegSet* sys_brk(_RegSet *r){
   SYSCALL_ARG1(r) = 0;
-  return r;
+  return NULL;
 }
 
 
