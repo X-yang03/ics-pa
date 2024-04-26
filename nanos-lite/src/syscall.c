@@ -19,6 +19,7 @@ _RegSet* sys_write(_RegSet *r){
       _putc(((char*)buf)[i]);
     }
   }
+  SYSCALL_ARG1(r) = buf;
   return r;
 }
 
