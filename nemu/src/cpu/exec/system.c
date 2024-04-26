@@ -6,7 +6,6 @@ void diff_test_skip_nemu();
 extern void raise_intr(uint8_t, vaddr_t);
 
 make_EHelper(lidt) {
-  printf("base : %d\n",cpu.idtr.base);
   cpu.idtr.limit = vaddr_read(id_dest->addr, 2);
   cpu.idtr.base = vaddr_read(id_dest->addr + 2, 4);
   if(decoding.is_operand_size_16)  cpu.idtr.base &= 0xffffff;
@@ -31,6 +30,7 @@ make_EHelper(mov_cr2r) {
 }
 
 make_EHelper(int) {
+  printf("base : %d\n",cpu.idtr.base);
   raise_intr(id_dest->val, decoding.seq_eip);
 
   print_asm("int %s", id_dest->str);
