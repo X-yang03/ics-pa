@@ -6,11 +6,11 @@ void diff_test_skip_nemu();
 extern void raise_intr(uint8_t, vaddr_t);
 
 make_EHelper(lidt) {
-  rtl_li(&t0, id_dest->addr);
-  cpu.idtr.limit = vaddr_read(t0, 2);
-  cpu.idtr.base = vaddr_read(t0 + 2, 4);
-  if(decoding.is_operand_size_16)
-    cpu.idtr.base &= 0xffffff;
+  rtl_li(&t0,id_dest->addr);
+  rtl_li(&t1,vaddr_read(t0,2));
+  cpu.idtr.limit = t1;
+  rtl_li(&t1,vaddr_read(t0+2,4));
+  cpu.idtr.base = t1;
 
   print_asm_template1(lidt);
 }
