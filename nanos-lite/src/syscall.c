@@ -13,6 +13,7 @@ _RegSet* sys_write(_RegSet *r){
   uintptr_t len = SYSCALL_ARG4(r);
 
   if( fd == 1 || fd == 2){
+    Log("sys_write\n");
     for(int i = 0; i< len; i++){
       _putc(((char*)buf)[i]);
     }
