@@ -33,8 +33,12 @@ typedef struct {
   };   //this case gpr and regs share the same address --2113301
   vaddr_t eip;
 
+  struct{
+      uint16_t limit;
+      uint32_t base;
+  }idtr;
   uint32_t cs;
-  
+
   union {
     uint32_t val;
     struct { // total 32 bits
