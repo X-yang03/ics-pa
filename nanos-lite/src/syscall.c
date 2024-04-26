@@ -1,10 +1,14 @@
 #include "common.h"
 #include "syscall.h"
 
-
-static inline _RegSet* sys_none(_RegSet *r){
+_RegSet* sys_none(_RegSet *r){
   SYSCALL_ARG1(r) = 1;
   //返回值存放在系统调用号所在的寄存器中
+  return r;
+}
+
+_RegSet* sys_exit(_RegSet *r){
+  _halt(SYSCALL_ARG2(r));
   return r;
 }
 
