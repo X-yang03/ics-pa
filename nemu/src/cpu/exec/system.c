@@ -3,6 +3,8 @@
 void diff_test_skip_qemu();
 void diff_test_skip_nemu();
 
+extern void raise_intr(uint8_t, vaddr_t);
+
 make_EHelper(lidt) {
   cpu.idtr.limit = vaddr_read(id_dest->addr, 2);
   cpu.idtr.base = vaddr_read(id_dest->addr + 2, 4);
