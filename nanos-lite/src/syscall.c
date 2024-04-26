@@ -37,6 +37,7 @@ _RegSet* do_syscall(_RegSet *r) {
   switch (a[0]) {
     case SYS_none: return sys_none(r);
     case SYS_write: 
+      Log("SYS_WRITE\n");
       sys_write(r);
       break;
     case SYS_exit: return sys_exit(r);
