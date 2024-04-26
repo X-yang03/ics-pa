@@ -7,10 +7,7 @@ _RegSet* sys_none(_RegSet *r){
   return r;
 }
 
-_RegSet* sys_write(_RegSet *r){
-  uintptr_t fd = SYSCALL_ARG2(r);
-  uintptr_t buf = SYSCALL_ARG3(r);
-  uintptr_t len = SYSCALL_ARG4(r);
+uintptr_t sys_write(uintptr_t fd,uintptr_t buf,uintptr_t len){
 
   if( fd == 1 || fd == 2){
     Log("sys_write\n");
@@ -18,15 +15,13 @@ _RegSet* sys_write(_RegSet *r){
       _putc(((char*)buf)[i]);
     }
   }
-   SYSCALL_ARG1(r) = len;
-   return NULL;
+  return 0;
 }
 
 _RegSet* sys_exit(_RegSet *r){
   _halt(SYSCALL_ARG2(r));
   return r;
 }
-
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
@@ -39,7 +34,7 @@ _RegSet* do_syscall(_RegSet *r) {
     case SYS_none: return sys_none(r);
     case SYS_write: 
       printf("SYS_WRITE\n");
-      sys_write(r);
+      sys_write(a[1],a[2],a[3]);
       break;
     case SYS_exit: return sys_exit(r);
     default: panic("Unhandled syscall ID = %d", a[0]);
