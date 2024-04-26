@@ -7,7 +7,11 @@ _RegSet* sys_none(_RegSet *r){
   return r;
 }
 
-uintptr_t sys_write(uintptr_t fd,uintptr_t buf,uintptr_t len){
+_RegSet* sys_write(_RegSet *r){
+
+  uintptr_t fd = SYSCALL_ARG2(r);
+  uintptr_t buf = SYSCALL_ARG3(r);
+  uintptr_t len = SYSCALL_ARG4(r);
 
   if( fd == 1 || fd == 2){
     Log("sys_write len %d\n",len);
@@ -15,7 +19,7 @@ uintptr_t sys_write(uintptr_t fd,uintptr_t buf,uintptr_t len){
       _putc(((char*)buf)[i]);
     }
   }
-  return 0;
+  return r;
 }
 
 _RegSet* sys_exit(_RegSet *r){
@@ -25,7 +29,7 @@ _RegSet* sys_exit(_RegSet *r){
 
 _RegSet* sys_brk(_RegSet *r){
   SYSCALL_ARG1(r) = 0;
-  return NULL;
+  return r;
 }
 
 
@@ -38,9 +42,8 @@ _RegSet* do_syscall(_RegSet *r) {
 
   switch (a[0]) {
     case SYS_none: return sys_none(r);
-    case SYS_write: 
-      sys_write(a[1],a[2],a[3]);
-      break;
+    case SYS_write:return sys_write(r);
+
     case SYS_exit: return sys_exit(r);
 
     case SYS_brk: return sys_brk(r);
