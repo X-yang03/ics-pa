@@ -59,8 +59,6 @@ ssize_t fs_read(int fd, void *buf, int len){
   off_t open = open_offset(fd);
   size_t size = fs_size (fd);
 
-  
-
   if(open + len > size){
     len = size - open;
   }
@@ -72,8 +70,6 @@ ssize_t fs_read(int fd, void *buf, int len){
   case FD_STDOUT:
   case FD_STDERR:
 			return 0;
-  case FD_FB:
-
   case FD_EVENTS:
     len = events_read((void *)buf, len);
     break;
