@@ -13,7 +13,6 @@ int fs_close(int fd);
 uintptr_t loader(_Protect *as, const char *filename) {
   // size_t len = get_ramdisk_size();
   // ramdisk_read(DEFAULT_ENTRY,0,len);
-  Log("Loading file: %s\n",filename);
   int fd = fs_open(filename, 0, 0);
   size_t size = fs_filesz(fd);
   fs_read(fd, (void*)DEFAULT_ENTRY, size);
