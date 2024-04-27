@@ -106,10 +106,6 @@ ssize_t fs_write(int fd, void *buf, int len){
 			open_offset(fd) += len;
 			break;
 
-    case FD_EVENTS:
-    case FD_DISPINFO:
-      return 0;
-
     default:
       if(open_offset(fd) + len > fs_size(fd)){
       len = fs_size(fd) - open_offset(fd);
