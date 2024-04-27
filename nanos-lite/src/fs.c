@@ -75,8 +75,8 @@ ssize_t fs_read(int fd, void *buf, int len){
     len = events_read((void *)buf, len);
     break;
   case FD_DISPINFO:
-    dispinfo_read(buf, file_table[fd].open_offset, len);
-    file_table[fd].open_offset += len;	
+    dispinfo_read(buf, open_offset(fd), len);
+    open_offset(fd) += len;	
     break;
   
   default:
