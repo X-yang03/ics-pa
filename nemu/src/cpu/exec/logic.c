@@ -71,7 +71,9 @@ make_EHelper(shr) {
   operand_write(id_dest,&t2);
   rtl_update_ZFSF(&id_dest->val,id_dest->width);
   if(decoding.seq_eip == 0x4001bb1){
+    printf("========\n");
     printf("ZF : %d\n",cpu.eflags.ZF);
+     printf("========\n");
   }
   
 
