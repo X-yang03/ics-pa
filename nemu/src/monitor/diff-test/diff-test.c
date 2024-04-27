@@ -153,27 +153,27 @@ void difftest_step(uint32_t eip) {
   if(cpu.eax != r.eax || cpu.ebx !=r.ebx || cpu.ecx != r.ecx || cpu.edx != r.edx 
     || cpu.esp != r.esp || cpu.ebp != r.ebp || cpu.esi != r.esi || cpu.edi != r.edi || cpu.eip != r.eip || r_ZF !=cpu.eflags.ZF)
    { diff = true;
-      printf("eax : %08x\n" , cpu.eax);	
-	printf("ecx : %08x\n" , cpu.ecx);
-	printf("edx : %08x\n" , cpu.edx);
-	printf("ebx : %08x\n" , cpu.ebx);
-	printf("esp : %08x\n" , cpu.esp);
-	printf("ebp : %08x\n" , cpu.ebp);
-	printf("esi : %08x\n" , cpu.esi);
-	printf("edi : %08x\n" , cpu.edi);
-  printf("eip : %08x\n" , cpu.eip);
-  printf("ZF: %d\n",cpu.eflags.ZF);
+  printf("cpu.eax : %08x\n" , cpu.eax);	
+	printf("cpu.ecx : %08x\n" , cpu.ecx);
+	printf("cpu.edx : %08x\n" , cpu.edx);
+	printf("cpu.ebx : %08x\n" , cpu.ebx);
+	printf("cpu.esp : %08x\n" , cpu.esp);
+	printf("cpu.ebp : %08x\n" , cpu.ebp);
+	printf("cpu.esi : %08x\n" , cpu.esi);
+	printf("cpu.edi : %08x\n" , cpu.edi);
+  printf("cpu.eip : %08x\n" , cpu.eip);
+  printf("cpu.ZF: %d\n",cpu.eflags.ZF);
 	printf("===================\n");
-  printf("eax : %08x\n" , r.eax);	
-	printf("ecx : %08x\n" , r.ecx);
-	printf("edx : %08x\n" , r.edx);
-	printf("ebx : %08x\n" , r.ebx);
-	printf("esp : %08x\n" , r.esp);
-	printf("ebp : %08x\n" , r.ebp);
-	printf("esi : %08x\n" , r.esi);
-	printf("edi : %08x\n" , r.edi);
-  printf("eip : %08x\n" , r.eip);
-  printf("ZF: %d\n",r_ZF);
+  printf("r.eax : %08x\n" , r.eax);	
+	printf("r.ecx : %08x\n" , r.ecx);
+	printf("r.edx : %08x\n" , r.edx);
+	printf("r.ebx : %08x\n" , r.ebx);
+	printf("r.esp : %08x\n" , r.esp);
+	printf("r.ebp : %08x\n" , r.ebp);
+	printf("r.esi : %08x\n" , r.esi);
+	printf("r.edi : %08x\n" , r.edi);
+  printf("r.eip : %08x\n" , r.eip);
+  printf("r.ZF: %d\n",r_ZF);
 	printf("===================\n");
     }
 
