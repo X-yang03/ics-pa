@@ -86,6 +86,8 @@ ssize_t fs_read(int fd, void *buf, int len){
 
 ssize_t fs_write(int fd, void *buf, int len){
 
+  Log("Wring to [%d] with %d bytes\n",fd,len);
+
   assert(open_offset(fd) + len <= fs_size(fd));
 
   switch(fd){
