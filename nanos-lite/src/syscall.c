@@ -86,7 +86,7 @@ _RegSet* do_syscall(_RegSet *r) {
       break;
     }
     case SYS_exit:{
-      sys_exit(a[0]);
+      sys_exit(a[1]);
       break;
     }
     case SYS_open:{
