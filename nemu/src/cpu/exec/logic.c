@@ -70,8 +70,10 @@ make_EHelper(shr) {
   rtl_shr(&t2,&id_dest->val,&id_src->val);
   operand_write(id_dest,&t2);
   rtl_update_ZFSF(&id_dest->val,id_dest->width);
-  if(&id_dest->val == 0)
-    cpu.eflags.ZF = 1;
+  if(decoding.seq_eip == 0x4001baf){
+    printf("eip : %08x\n",cpu.eip);
+  }
+  
 
   // unnecessary to update CF and OF in NEMU
 
