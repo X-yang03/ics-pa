@@ -184,9 +184,8 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
   //TODO();
   cpu.eflags.ZF = (((~0 >> (32 - width * 8)) & *result) == 0);
-  if(*result == 0){
-    printf("res == 0\n");
-  }
+  if(*result == 0)
+    cpu.eflags.ZF = 1;
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
