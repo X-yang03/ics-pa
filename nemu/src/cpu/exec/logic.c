@@ -73,6 +73,8 @@ make_EHelper(shr) {
   if(decoding.seq_eip >= 0x4000000){
     printf("========\n");
     printf("ZF : %d\n",cpu.eflags.ZF);
+    printf("t : %d\n",t2);
+    printf("val: %d\n",*(&id_dest->val));
      printf("========\n");
   }
   
