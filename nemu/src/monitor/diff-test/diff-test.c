@@ -149,9 +149,9 @@ void difftest_step(uint32_t eip) {
 
   // TODO: Check the registers state with QEMU.
   // Set `diff` as `true` if they are not the same.
-  
+  int r_ZF = r.eflags & 0b1000000;
   if(cpu.eax != r.eax || cpu.ebx !=r.ebx || cpu.ecx != r.ecx || cpu.edx != r.edx 
-    || cpu.esp != r.esp || cpu.ebp != r.ebp || cpu.esi != r.esi || cpu.edi != r.edi || cpu.eip != r.eip)
+    || cpu.esp != r.esp || cpu.ebp != r.ebp || cpu.esi != r.esi || cpu.edi != r.edi || cpu.eip != r.eip || r_ZF !=cpu.eflags.ZF)
    { diff = true;
       printf("eax : %08x\n" , cpu.eax);	
 	printf("ecx : %08x\n" , cpu.ecx);
@@ -162,6 +162,7 @@ void difftest_step(uint32_t eip) {
 	printf("esi : %08x\n" , cpu.esi);
 	printf("edi : %08x\n" , cpu.edi);
   printf("eip : %08x\n" , cpu.eip);
+  printf("ZF: %d\n",cpu.eflags.ZF);
 	printf("===================\n");
   printf("eax : %08x\n" , r.eax);	
 	printf("ecx : %08x\n" , r.ecx);
@@ -172,6 +173,7 @@ void difftest_step(uint32_t eip) {
 	printf("esi : %08x\n" , r.esi);
 	printf("edi : %08x\n" , r.edi);
   printf("eip : %08x\n" , r.eip);
+  printf("ZF: %d\n",r_ZF);
 	printf("===================\n");
     }
 
