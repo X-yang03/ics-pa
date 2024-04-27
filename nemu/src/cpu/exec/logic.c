@@ -67,8 +67,8 @@ make_EHelper(shl) {
 
 make_EHelper(shr) {
   //TODO();
-  rtl_shr(&t0,&id_dest->val,&id_src->val);
-  operand_write(id_dest,&t0);
+  rtl_shr(&t2,&id_dest->val,&id_src->val);
+  operand_write(id_dest,&t2);
   rtl_update_ZFSF(&id_dest->val,id_dest->width);
 
   // unnecessary to update CF and OF in NEMU
