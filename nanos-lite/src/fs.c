@@ -59,7 +59,9 @@ ssize_t fs_read(int fd, void *buf, int len){
   off_t open = open_offset(fd);
   size_t size = fs_size (fd);
 
-  assert(open + len <= size);
+  if(open + len > size){
+    len = size - open;
+  }
 
   switch (fd)
   {
@@ -88,8 +90,6 @@ ssize_t fs_write(int fd, void *buf, int len){
 
   Log("Wring to [%d] with %d bytes\n",fd,len);
 
-  assert(open_offset(fd) + len <= fs_size(fd));
-
   switch(fd){
 
     case FD_STDIN:
@@ -106,6 +106,9 @@ ssize_t fs_write(int fd, void *buf, int len){
       return 0;
 
     default:
+      if(open_offset(fd) + len > fs_size(fd)){
+      len = fs_size(fd) - open_offset(fd);
+      }
       ramdisk_write(buf, diskoffset(fd) + open_offset(fd),len);
       open_offset(fd) += len;
       break;
