@@ -62,7 +62,7 @@ ssize_t fs_read(int fd, void *buf, int len){
   if(open + len > size){
     len = size - open;
   }
-  Log("reading [%d] with %d bytes\n",fd,len);
+  //Log("reading [%d] with %d bytes\n",fd,len);
 
   switch (fd)
   {
@@ -95,7 +95,6 @@ ssize_t fs_write(int fd, void *buf, int len){
 
     case FD_STDOUT:
     case FD_STDERR:
-      Log("sys_write len %d\n",len);
       for(int i = 0; i< len; i++){
         _putc(((char*)buf)[i]);
       }
