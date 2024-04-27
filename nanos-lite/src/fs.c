@@ -92,7 +92,7 @@ ssize_t fs_write(int fd, void *buf, int len){
 
   switch(fd){
 
-    case FD_STDIN:
+    case FD_STDOUT:
     case FD_STDERR:
       Log("sys_write len %d\n",len);
       for(int i = 0; i< len; i++){
