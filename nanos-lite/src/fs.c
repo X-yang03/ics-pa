@@ -59,7 +59,7 @@ ssize_t fs_read(int fd, void *buf, int len){
   off_t open = open_offset(fd);
   size_t size = fs_size (fd);
 
-  if(open + len > size){
+  if(open + len >= size){
     len = size - open;
   }
 
