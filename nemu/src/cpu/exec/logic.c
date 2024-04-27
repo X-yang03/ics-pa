@@ -73,9 +73,14 @@ make_EHelper(shr) {
     printf("t : %d\n",t2);
     printf("val: %d\n",*(&id_dest->val));
     printf("src_val: %d\n",*(&id_src->val));
-     printf("========\n");
+     printf("----------\n");
   }
   operand_write(id_dest,&t2);
+  if(decoding.seq_eip >= 0x4000000){
+    printf("val: %d\n",*(&id_dest->val));
+    printf("reg: %d\n",*(&id_src->reg));
+     printf("----------\n");
+  }
   rtl_update_ZFSF(&id_dest->val,id_dest->width);
   if(decoding.seq_eip >= 0x4000000){
     printf("========\n");
