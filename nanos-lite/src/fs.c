@@ -38,6 +38,7 @@ size_t fs_filesz(int fd){
 }
 
 int fs_open(const char* pathname, int flags, int mode){
+  Log("Opening file: %s\n",pathname );
   for(int i = 0; i < NR_FILES; i++){
     if( strcmp(pathname , fs_name(i)) == 0){
       open_offset(i) = 0;
