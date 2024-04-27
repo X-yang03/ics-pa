@@ -72,9 +72,11 @@ ssize_t fs_read(int fd, void *buf, int len){
   case FD_FB:
 
   case FD_EVENTS:
-
+    len = events_read((void *)buf, len);
+    break;
   case FD_DISPINFO:
-    /* code */
+    dispinfo_read(buf, file_table[fd].open_offset, len);
+    file_table[fd].open_offset += len;	
     break;
   
   default:
@@ -101,6 +103,10 @@ ssize_t fs_write(int fd, void *buf, int len){
       break;
 
     case FD_FB:
+      fb_write(buf, open_offset(fd), len);
+			open_offset(fd) += len;
+			break;
+
     case FD_EVENTS:
     case FD_DISPINFO:
       return 0;
@@ -151,4 +157,5 @@ off_t fs_lseek(int fd, off_t offset, int whence) {
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
+  file_table[FD_FB].size = _screen.height * _screen.width * 4;
 }
