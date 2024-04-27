@@ -70,8 +70,8 @@ make_EHelper(shr) {
   rtl_shr(&t2,&id_dest->val,&id_src->val);
   operand_write(id_dest,&t2);
   rtl_update_ZFSF(&id_dest->val,id_dest->width);
-  if(decoding.seq_eip == 0x4001baf){
-    printf("eip : %08x\n",cpu.eip);
+  if(decoding.seq_eip == 0x4001bb1){
+    printf("ZF : %d\n",cpu.eflags.ZF);
   }
   
 
