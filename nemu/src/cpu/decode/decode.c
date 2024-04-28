@@ -77,6 +77,7 @@ static inline make_DopHelper(r) {
     rtl_lr(&op->val, op->reg, op->width);
     printf("\neip:%08x\n",*eip);
     printf("opcode:%08x\n",decoding.opcode);
+    printf("width:%d\n",op->width);
     printf("op_val:%08x\nop_reg:%08x\n",op->val, op->reg);
     if(op->reg==1){
       printf("ecx: %08x\n",cpu.gpr[1]._32);
