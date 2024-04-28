@@ -12,7 +12,6 @@ int main() {
   _ioe_init();
 
   while (1) {
-    printf("here\n");
     int key = _read_key();
     bool down = false;
     if (key & 0x8000) {
