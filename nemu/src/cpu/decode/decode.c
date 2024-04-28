@@ -75,8 +75,12 @@ static inline make_DopHelper(r) {
   op->reg = decoding.opcode & 0x7; //lower 3 bits
   if (load_val) {
     rtl_lr(&op->val, op->reg, op->width);
-    printf("eip:%08x\n",*eip);
+    printf("\neip:%08x\n",*eip);
     printf("op_val:%08x\nop_reg:%08x\n",op->val, op->reg);
+    if(op->reg==1){
+      printf("ecx: %08x\n",cpu.gpr[1]._32);
+      printf("eax: %08x\n",cpu.gpr[0]._32);
+    }
   }
 
 #ifdef DEBUG
