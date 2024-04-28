@@ -59,7 +59,7 @@ make_EHelper(cltd) {
     //TODO();
     rtl_msb(&t0,&cpu.eax,2);
     if(t0 == 1)
-      cpu.edx = cpu.edx & 0xffffffff;
+      cpu.edx = cpu.edx | 0xffff;
     else
       cpu.edx = 0;
     
@@ -67,7 +67,7 @@ make_EHelper(cltd) {
   else {
     rtl_msb(&t0,&cpu.eax,4);
     if(t0 == 1)
-      cpu.edx = cpu.edx & 0xffffffff;
+      cpu.edx = cpu.edx | 0xffffffff;
     else
       cpu.edx = 0;
     
