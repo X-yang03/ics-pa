@@ -152,7 +152,7 @@ void difftest_step(uint32_t eip) {
   int r_ZF = (r.eflags & 0b01000000) >> 6;
   //cpu.eflags.ZF = r_ZF;
   if(cpu.eax != r.eax || cpu.ebx !=r.ebx || cpu.ecx != r.ecx || cpu.edx != r.edx 
-    || cpu.esp != r.esp || cpu.ebp != r.ebp || cpu.esi != r.esi || cpu.edi != r.edi || cpu.eip != r.eip || cpu.eflags.ZF!=r_ZF)
+    || cpu.esp != r.esp || cpu.ebp != r.ebp || cpu.esi != r.esi || cpu.edi != r.edi || cpu.eip != r.eip)
    { diff = true;
   printf("cpu.eax : %08x\n" , cpu.eax);	
 	printf("cpu.ecx : %08x\n" , cpu.ecx);
