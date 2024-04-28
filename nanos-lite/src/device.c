@@ -33,6 +33,7 @@ void dispinfo_read(void *buf, off_t offset, size_t len) {
 
 void fb_write(const void *buf, off_t offset, size_t len) {
   //Log("Fb drawing... at %d with data %d\n",offset, len);
+  assert(_screen.width == 0);
   int index_begin = offset >> 2;
   int x_begin = index_begin % _screen.width;
   int y_begin = index_begin / _screen.width;
