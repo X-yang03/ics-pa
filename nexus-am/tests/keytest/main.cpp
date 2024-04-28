@@ -21,8 +21,8 @@ int main() {
     if (key != _KEY_NONE) {
       printf("Get key: %d %s %s\n", key, names[key], down ? "down" : "up");
     }
-    if(down){
-      printf("down\n");
+    else{
+      printf("Get key: %d %s %s\n", key, names[key], down ? "down" : "up");
     }
   }
   return 0;
