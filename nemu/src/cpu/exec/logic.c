@@ -49,7 +49,7 @@ make_EHelper(sar) {
   //TODO();
   rtl_sar(&t2,&id_dest->val,&id_src->val);
   operand_write(id_dest,&t2);
-  rtl_update_ZFSF(&id_dest->val,id_dest->width);
+  rtl_update_ZFSF(&t2,id_dest->width);
 
   // unnecessary to update CF and OF in NEMU
 
@@ -60,7 +60,7 @@ make_EHelper(shl) {
   //TODO();
   rtl_shl(&t2,&id_dest->val,&id_src->val);
   operand_write(id_dest,&t2);
-  rtl_update_ZFSF(&id_dest->val,id_dest->width);
+  rtl_update_ZFSF(&t2,id_dest->width);
 
   print_asm_template2(shl);
 }
@@ -83,7 +83,7 @@ make_EHelper(shr) {
   //   printf("eax: %d\n",cpu.eax);
   //    printf("----------\n");
   // }
-  rtl_update_ZFSF(&id_dest->val,id_dest->width);
+  rtl_update_ZFSF(&t2,id_dest->width);
   // if(decoding.seq_eip >= 0x4000000){
   //   printf("========\n");
   //   printf("ZF : %d\n",cpu.eflags.ZF);
