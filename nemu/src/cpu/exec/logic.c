@@ -5,6 +5,7 @@ make_EHelper(test) {
   rtl_and(&t0,&id_dest->val,&id_src->val);
   printf("=====\n");
   printf("and %08x, %08x\n",id_dest->val,id_src->val);
+  printf("eax:%08x\n",cpu.eax);
   printf("res:%d\n=====\n",t0);
   rtl_update_ZFSF(&t0,id_dest->width);
   rtl_set_CF(&tzero);
