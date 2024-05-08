@@ -62,7 +62,6 @@ ssize_t fs_read(int fd, void *buf, int len){
   if(open + len > size){
     len = size - open;
   }
-  //Log("reading [%d] with %d bytes\n",fd,len);
 
   switch (fd)
   {
@@ -120,7 +119,6 @@ ssize_t fs_write(int fd, void *buf, int len){
 
 off_t fs_lseek(int fd, off_t offset, int whence) {
   off_t res = -1;
-
   switch (whence)
   {
   case SEEK_SET :
