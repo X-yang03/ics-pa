@@ -199,7 +199,8 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
   //TODO();
   int zf = -1;
-  printf("width: %d\n",width);
+  if(width > 4)
+    printf("width: %d\n",width);
   zf = (((zf) >> (32-width*8)) & *result );
   
 
