@@ -199,12 +199,23 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
   //TODO();
   int zf = -1;
-  if(width > 4)
-    printf("width: %d\n",width);
-  zf = (((zf) >> (32-width*8)) & *result );
-  
-
+  zf = (((zf) >> (32-width*8)) & *result ) | 0;
   cpu.eflags.ZF = !zf;
+  // int zf = 0;
+  // switch (width)
+  // {
+  // case 1:
+  //   zf = (*result & 0x000000ff) | 0;
+  //   break;
+  // case 2:
+  //   zf = (*result & 0x0000ffff) | 0;
+  //   break;
+  // case 4:
+  //   zf = (*result & 0xffffffff) | 0;
+  //   break;
+  // default:
+  //   break;
+  // }
   
 }
 
