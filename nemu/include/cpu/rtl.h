@@ -205,13 +205,13 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   switch (width)
   {
   case 1:
-    zf = (*result & 0x000000ff) | 0;
+    zf = (*result & 0x000000ff);
     break;
   case 2:
-    zf = (*result & 0x0000ffff) | 0;
+    zf = (*result & 0x0000ffff);
     break;
   case 4:
-    zf = (*result & 0xffffffff) | 0;
+    zf = (*result & 0xffffffff);
     break;
   default:
     break;
