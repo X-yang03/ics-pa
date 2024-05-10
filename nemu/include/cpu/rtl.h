@@ -200,8 +200,8 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   //TODO();
   // int zf = -1;
   // zf = (((zf) >> (32-width*8)) & *result ) | 0;
-  // cpu.eflags.ZF = ((~0 >> (32 - width * 8)) & *result) == 0; // could cause huge bug!!! USE 0XFFFFFFFFU INSTEAD!!!
-  cpu.eflags.ZF = ((0xffffffffu >> (32 - width * 8)) & *result) == 0;
+  cpu.eflags.ZF = ((~0 >> (32 - width * 8)) & *result) == 0; // could cause huge bug!!! USE 0XFFFFFFFFU INSTEAD!!!
+  //cpu.eflags.ZF = ((0xffffffffu >> (32 - width * 8)) & *result) == 0;
   
 }
 
