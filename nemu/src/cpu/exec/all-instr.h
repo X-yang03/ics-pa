@@ -7,6 +7,7 @@ make_EHelper(movsx);
 make_EHelper(lea);
 make_EHelper(cwtl);
 make_EHelper(cltd);
+make_EHelper(mov_store_cr);
 
 make_EHelper(operand_size);
 
