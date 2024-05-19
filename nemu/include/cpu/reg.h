@@ -53,7 +53,9 @@ typedef struct {
       unsigned:20;
     };
   } eflags;
-
+  
+  uint32_t cr0;
+  uint32_t cr3;
 
 } CPU_state;
 
