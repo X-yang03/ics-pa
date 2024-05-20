@@ -15,7 +15,6 @@ uintptr_t loader(_Protect *as, const char *filename) {
   // ramdisk_read(DEFAULT_ENTRY,0,len);
   int fd = fs_open(filename, 0, 0);
   size_t size = fs_filesz(fd);
-  Log("Load [%d] %s with size: %d page: %d", fd, filename, size, size/PGSIZE+1);
   void* pa = NULL;
   void* va = (void*)DEFAULT_ENTRY; //beginning of the data
   int remain_size = size;
@@ -27,6 +26,7 @@ uintptr_t loader(_Protect *as, const char *filename) {
     fs_read(fd, pa, PGSIZE);
   }
   //fs_read(fd, (void*)DEFAULT_ENTRY, size);
+  Log("Load [%d] %s with size: %d page: %d", fd, filename, size, size/PGSIZE+1);
   fs_close(fd);
   return (uintptr_t)DEFAULT_ENTRY;
 
