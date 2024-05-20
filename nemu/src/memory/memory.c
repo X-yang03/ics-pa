@@ -28,6 +28,9 @@ uint8_t pmem[PMEM_SIZE];
 /* Memory accessing interfaces */
 paddr_t page_translate(vaddr_t addr, int operation){
   CR0 cr0 = (CR0)cpu.cr0;
+  if(addr == 0x08048000){
+    Log("cr0 : %08x\n",cr0.val);
+  }
   if(cr0.protect_enable && cr0.paging){
     //Log("translate\n");
     CR3 cr3 = (CR3)cpu.cr3;
