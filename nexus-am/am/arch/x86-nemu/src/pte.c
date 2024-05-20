@@ -67,19 +67,26 @@ void _switch(_Protect *p) {
 }
 
 void _map(_Protect *p, void *va, void *pa) { //map virtual addr va from p to physical addr pa
-  PDE* pgdir =(PDE*) p->ptr;
-  PDE* pde = pgdir + PDX(va); //addr of the page table
+  // PDE* pgdir =(PDE*) p->ptr;
+  // PDE* pde = pgdir + PDX(va); //addr of the page table
 
-  PTE* pgtab = NULL;
-  if(!(*pde & PTE_P)){  // not present
-    pgtab = (PTE*)palloc_f();  //alloc
-    *pde = (uintptr_t)pgtab|PTE_P;  //map the page table to the pddir
-  }
-  else
-    pgtab =(PTE*)PTE_ADDR(*pde);
+  // PTE* pgtab = NULL;
+  // if(!(*pde & PTE_P)){  // not present
+  //   pgtab = (PTE*)palloc_f();  //alloc
+  //   *pde = (uintptr_t)pgtab|PTE_P;  //map the page table to the pddir
+  // }
+  // else
+  //   pgtab =(PTE*)PTE_ADDR(*pde);
 
-  PTE* pte = pgtab + PTX(va); //page table entry
-  *pte =(uintptr_t)pa|PTE_P;  //point to the pa
+  // PTE* pte = pgtab + PTX(va); //page table entry
+  // *pte =(uintptr_t)pa|PTE_P;  //point to the pa
+  PDE* pgdir = (PDE*)(p->ptr);
+    if(!(pgdir[PDX(va)] & PTE_P)){
+        PTE* pte = (PTE*)palloc_f();
+        pgdir[PDX(va)] = ((uint32_t)pte & ~0x3ff) | PTE_P;
+    }
+    PTE* pte = (PTE*)PTE_ADDR(pgdir[PDX(va)]);
+    pte[PTX(va)] = (((uint32_t)pa) & ~0xfff) | PTE_P;
 }
 
 void _unmap(_Protect *p, void *va) {
