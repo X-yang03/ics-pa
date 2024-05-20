@@ -73,13 +73,13 @@ void _map(_Protect *p, void *va, void *pa) { //map virtual addr va from p to phy
   PTE* pgtab = NULL;
   if(!(*pde & PTE_P)){  // not present
     pgtab = (PTE*)palloc_f();  //alloc
-    *pde = (PDE)(pgtab) | PTE_P;  //map the page table to the pddir
+    *pde = (uintptr_t)pgtab|PTE_P;  //map the page table to the pddir
   }
   else
     pgtab =(PTE*)PTE_ADDR(*pde);
 
   PTE* pte = pgtab + PTX(va); //page table entry
-  *pte =(PTE)pa | PTE_P;  //point to the pa
+  *pte =(uintptr_t)pa|PTE_P;  //point to the pa
 }
 
 void _unmap(_Protect *p, void *va) {
