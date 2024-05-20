@@ -63,7 +63,7 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
   if(PTE_ADDR(addr) != PTE_ADDR(addr+len-1)){
-    Assert(0,"address across different pages!!\n");
+    //Assert(0,"address across different pages!!\n");
     int len1 = 0x1000 - OFF(addr);
     paddr_t paddr1 = page_translate(addr, vread);
     uint32_t low_page = paddr_read(paddr1, len1);
