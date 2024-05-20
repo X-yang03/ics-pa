@@ -18,13 +18,13 @@ uintptr_t loader(_Protect *as, const char *filename) {
   Log("Load [%d] %s with size: %d page: %d", fd, filename, size, size/PGSIZE+1);
   void* pa = NULL;
   void* va = (void*)DEFAULT_ENTRY; //beginning of the data
-  while(size > 0){
+  int remain_size = size;
+  while(remain_size > 0){
     pa = new_page();
     _map(as,va,pa);
     va += PGSIZE;
-    size -= PGSIZE;
+    remain_size -= PGSIZE;
     fs_read(fd, pa, PGSIZE);
-    printf("remain size: %d\n",size);
   }
   //fs_read(fd, (void*)DEFAULT_ENTRY, size);
   fs_close(fd);
