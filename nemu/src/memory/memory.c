@@ -29,6 +29,7 @@ uint8_t pmem[PMEM_SIZE];
 paddr_t page_translate(vaddr_t addr, int operation){
   CR0 cr0 = (CR0)cpu.cr0;
   if(cr0.protect_enable && cr0.paging){
+    Log("translate\n");
     CR3 cr3 = (CR3)cpu.cr3;
     PDE* pgdir=(PDE*)PTE_ADDR(cr3.val);
     PDE pde=(PDE)paddr_read((uint32_t)(pgdir+PDX(addr)),4);
@@ -43,7 +44,7 @@ paddr_t page_translate(vaddr_t addr, int operation){
     pte.dirty = operation == vwrite ? 1 : pte.dirty; 
     return PTE_ADDR(pte.val)| OFF(addr);
   }
-  Log("translate\n");
+  //Log("translate\n");
   return addr;
 }
 
