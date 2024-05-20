@@ -48,7 +48,7 @@ void _pte_init(void* (*palloc)(), void (*pfree)(void*)) {
 }
 
 void _protect(_Protect *p) {
-  PDE *updir = (PDE*)(palloc_f());
+  PDE *updir = (PDE*)(palloc_f());  //apply a free page as its page dir
   p->ptr = updir;
   // map kernel space
   for (int i = 0; i < NR_PDE; i ++) {
@@ -66,7 +66,20 @@ void _switch(_Protect *p) {
   set_cr3(p->ptr);
 }
 
-void _map(_Protect *p, void *va, void *pa) {
+void _map(_Protect *p, void *va, void *pa) { //map virtual addr va from p to physical addr pa
+  PDE* pgdir =(PDE*) p->ptr;
+  PDE* pde = pgdir + PDX(va); //addr of the page table
+
+  PTE* pgtab = NULL;
+  if(!(*pde & PTE_P)){  // not present
+    pgtab = (PTE*)palloc_f();  //alloc
+    *pde = (PDE)(pgtab) | PTE_P;  //map the page table to the pddir
+  }
+  else
+    pgtab =(PTE*)PTE_ADDR(*pde);
+
+  PTE* pte = pgtab + PTX(va); //page table entry
+  *pte =(PTE)pa | PTE_P;  //point to the pa
 }
 
 void _unmap(_Protect *p, void *va) {
