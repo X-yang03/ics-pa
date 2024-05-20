@@ -63,16 +63,18 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
   if(PTE_ADDR(addr) != PTE_ADDR(addr+len-1)){
-    Assert(0,"read across different pages!! %08x to %08x, len = %d\n", addr, addr+len-1,len);
+    //Assert(0,"read across different pages!! %08x to %08x, len = %d\n", addr, addr+len-1,len);
     int len1 = 0x1000 - OFF(addr);
     paddr_t paddr1 = page_translate(addr, vread);
     uint32_t low_page = paddr_read(paddr1, len1);
-
+    Log("read %d bytes %08x\n", len1, low_page);
     int len2 = len - len1;
     paddr_t paddr2 = page_translate(addr + len1, vread);
     uint32_t high_page = paddr_read(paddr2, len2);
+    Log("read %d bytes %08x\n", len2, high_page);
     
     uint32_t page = (high_page)<<len2*8 | low_page;
+    Log("data: %08x\n",page);
     return page; 
   }
   else{
