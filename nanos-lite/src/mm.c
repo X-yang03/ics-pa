@@ -4,7 +4,7 @@
 static void *pf = NULL;
 
 void* new_page(void) {
-  printf("pf %08x exceed head end %08x\n",pf,_heap.end);
+  //printf("pf %08x exceed head end %08x\n",pf,_heap.end);
   assert(pf < (void *)_heap.end);
   void *p = pf;
   pf += PGSIZE;
