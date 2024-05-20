@@ -27,6 +27,7 @@ uint8_t pmem[PMEM_SIZE];
 
 /* Memory accessing interfaces */
 paddr_t page_translate(vaddr_t addr, int operation){
+  Log("translate\n");
   CR0 cr0 = (CR0)cpu.cr0;
   if(cr0.protect_enable && cr0.paging){
     CR3 cr3 = (CR3)cpu.cr3;
