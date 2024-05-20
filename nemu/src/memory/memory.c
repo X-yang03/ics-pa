@@ -73,7 +73,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
     uint32_t high_page = paddr_read(paddr2, len2);
     Log("read %d bytes %08x\n", len2, high_page);
     
-    uint32_t page = (high_page)<<len2*8 | low_page;
+    uint32_t page = (high_page)<<len1*8 | low_page;
     Log("data: %08x\n",page);
     Assert(0,"here\n");
     return page; 
