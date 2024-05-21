@@ -235,11 +235,12 @@ void exec_wrapper(bool print_flag) {
 
   decoding.seq_eip = cpu.eip;
   exec_real(&decoding.seq_eip);
-  // if(cpu.INTR && cpu.eflags.IF){
-  //   cpu.INTR = false;
-  //   raise_intr(TIMER_IRQ,cpu.eip);
-  //   update_eip();
-  // }
+  if(cpu.INTR && cpu.eflags.IF){
+    cpu.INTR = false;
+    raise_intr(TIMER_IRQ,cpu.eip);
+    Log("int\n");
+    update_eip();
+  }
 
 
 #ifdef DEBUG
