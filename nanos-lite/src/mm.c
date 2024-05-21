@@ -36,6 +36,7 @@ int mm_brk(uint32_t new_brk) {
       current->cur_brk = new_brk;
     }
   }
+  Log("brk with addr %d\n",new_brk);
   return 0;
 }
 
