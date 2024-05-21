@@ -26,62 +26,62 @@ enum operate{vread,vwrite};
 uint8_t pmem[PMEM_SIZE];
 
 /* Memory accessing interfaces */
-// paddr_t page_translate(vaddr_t addr, int operation){
-//   CR0 cr0 = (CR0)cpu.cr0;
-//   if(addr == 0x08048000){
-//     Log("cr0 : %08x\n",cr0.val);
-//   }
-//   if(cr0.protect_enable && cr0.paging){
-//     //Log("translate\n");
-//     CR3 cr3 = (CR3)cpu.cr3;
-//     PDE* pgdir=(PDE*)PTE_ADDR(cr3.val);
-//     PDE pde=(PDE)paddr_read((uint32_t)(pgdir+PDX(addr)),4);
-//     Assert(pde.present,"addr=0x%x",addr);
-//     pde.accessed=1;
+paddr_t page_translate(vaddr_t addr, int operation){
+  CR0 cr0 = (CR0)cpu.cr0;
+  if(addr == 0x08048000){
+    Log("cr0 : %08x\n",cr0.val);
+  }
+  if(cr0.protect_enable && cr0.paging){
+    //Log("translate\n");
+    CR3 cr3 = (CR3)cpu.cr3;
+    PDE* pgdir=(PDE*)PTE_ADDR(cr3.val);
+    PDE pde=(PDE)paddr_read((uint32_t)(pgdir+PDX(addr)),4);
+    Assert(pde.present,"addr=0x%x",addr);
+    pde.accessed=1;
     
-//     // 设置PTE
-//     PTE* ptab = (PTE*)PTE_ADDR(pde.val);
-//     PTE pte = (PTE)paddr_read((uint32_t)(ptab+PTX(addr)),4);
-//     Assert(pte.present,"addr=0x%x",addr);
-//     pte.accessed = 1;
-//     pte.dirty = operation == vwrite ? 1 : pte.dirty; 
-//     return PTE_ADDR(pte.val)| OFF(addr);
-//   } 
-//   //Log("translate\n");
-//   return addr;
-// }
-
-paddr_t page_translate(vaddr_t addr, bool iswrite){
-    CR0 cr0 = (CR0)cpu.cr0;
-    if(cr0.paging){
-        PDE *pgdir=(PDE*)(cpu.cr3 & ~0xfff);
-        PDE pde=(PDE)paddr_read((uint32_t)(&pgdir[((addr >> 22) & 0x3ff)]), 4);
-        if(!pde.present){
-            assert(0);
-        }
-        
-        PTE *pt=(PTE*)(pde.page_frame << 12);
-        PTE pte=(PTE)paddr_read((uint32_t)(&pt[((addr >> 12) & 0x3ff)]), 4);
-        if(!pte.present){
-            assert(0);
-        }
-
-        paddr_t page_addr = (uint32_t)(pte.page_frame << 12) | (addr & 0xfff);
-
-        pde.accessed = 1;
-        pte.accessed = 1;
-        if(iswrite){
-            pte.dirty = 1;
-        }
-        paddr_write((uint32_t)(&pgdir[((addr >> 22) & 0x3ff)]), 4, pde.val);
-        paddr_write((uint32_t)(&pt[((addr >> 12) & 0x3ff)]), 4, pte.val);
-
-        return page_addr;
-    }
-    else{
-        return addr;
-    }
+    // 设置PTE
+    PTE* ptab = (PTE*)PTE_ADDR(pde.val);
+    PTE pte = (PTE)paddr_read((uint32_t)(ptab+PTX(addr)),4);
+    Assert(pte.present,"addr=0x%x",addr);
+    pte.accessed = 1;
+    pte.dirty = operation == vwrite ? 1 : pte.dirty; 
+    return PTE_ADDR(pte.val)| OFF(addr);
+  } 
+  //Log("translate\n");
+  return addr;
 }
+
+// paddr_t page_translate(vaddr_t addr, bool iswrite){
+//     CR0 cr0 = (CR0)cpu.cr0;
+//     if(cr0.paging){
+//         PDE *pgdir=(PDE*)(cpu.cr3 & ~0xfff);
+//         PDE pde=(PDE)paddr_read((uint32_t)(&pgdir[((addr >> 22) & 0x3ff)]), 4);
+//         if(!pde.present){
+//             assert(0);
+//         }
+        
+//         PTE *pt=(PTE*)(pde.page_frame << 12);
+//         PTE pte=(PTE)paddr_read((uint32_t)(&pt[((addr >> 12) & 0x3ff)]), 4);
+//         if(!pte.present){
+//             assert(0);
+//         }
+
+//         paddr_t page_addr = (uint32_t)(pte.page_frame << 12) | (addr & 0xfff);
+
+//         pde.accessed = 1;
+//         pte.accessed = 1;
+//         if(iswrite){
+//             pte.dirty = 1;
+//         }
+//         paddr_write((uint32_t)(&pgdir[((addr >> 22) & 0x3ff)]), 4, pde.val);
+//         paddr_write((uint32_t)(&pt[((addr >> 12) & 0x3ff)]), 4, pte.val);
+
+//         return page_addr;
+//     }
+//     else{
+//         return addr;
+//     }
+// }
 uint32_t paddr_read(paddr_t addr, int len) {
   int no = is_mmio(addr);
   if (no == -1)
