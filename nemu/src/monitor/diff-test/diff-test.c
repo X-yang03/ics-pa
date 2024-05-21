@@ -177,6 +177,7 @@ void difftest_step(uint32_t eip) {
   printf("r.ZF: %d\n",r_ZF);
 	printf("===================\n");
   printf("cpu.cr0: %08x\n", cpu.cr0);
+  printf("cpu.cr3: %08x\n", cpu.cr3);
     }
 
   if (diff) {
