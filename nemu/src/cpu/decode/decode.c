@@ -317,7 +317,7 @@ make_DHelper(out_a2dx) {
 
 make_DHelper(mov_load_cr){
   decode_op_rm(eip, id_dest, false, id_src, false);
-  rtl_load_cr(&id_dest->val, id_src->reg);
+  rtl_load_cr(&id_src->val, id_src->reg);  //src!!!
 }
 
 make_DHelper(mov_store_cr){
