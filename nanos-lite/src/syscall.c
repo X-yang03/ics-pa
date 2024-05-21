@@ -46,6 +46,7 @@ int sys_none(){
 
 extern int mm_brk(uint32_t new_brk);
 int sys_brk(int addr){
+  printf("brk with addr %d\n",addr);
   return mm_brk(addr);
   //return 0;
 }
