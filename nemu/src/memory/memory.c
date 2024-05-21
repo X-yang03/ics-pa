@@ -46,8 +46,8 @@ paddr_t page_translate(vaddr_t addr, int operation){
     pte.accessed = 1;
     pte.dirty = operation == vwrite ? 1 : pte.dirty; 
 
-    paddr_write((uint32_t)(&pgdir[((addr >> 22) & 0x3ff)]), 4, pde.val);
-    paddr_write((uint32_t)(&ptab[((addr >> 12) & 0x3ff)]), 4, pte.val);
+    //paddr_write((uint32_t)(&pgdir[((addr >> 22) & 0x3ff)]), 4, pde.val);
+    //paddr_write((uint32_t)(&ptab[((addr >> 12) & 0x3ff)]), 4, pte.val);
     return PTE_ADDR(pte.val)| OFF(addr);
   } 
   //Log("translate\n");
