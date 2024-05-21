@@ -22,7 +22,7 @@ int mm_brk(uint32_t new_brk) {
   }
   else{
     if(new_brk > current->max_brk){
-      while(new_brk>0){
+
         uint32_t pg_begin = PGROUNDUP(current->max_brk);
         uint32_t pg_end = PGROUNDUP(new_brk);
         //if(new_brk & PGMASK == 0){ pg_end -= PGSIZE;}
@@ -31,10 +31,8 @@ int mm_brk(uint32_t new_brk) {
           _map(&(current->as), (void*)va, heap_page);
         }
         current->max_brk = new_brk;
-
-      }
-      current->cur_brk = new_brk;
     }
+    current->cur_brk = new_brk;
   }
   Log("brk with addr %d\n",new_brk);
   return 0;
