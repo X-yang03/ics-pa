@@ -238,7 +238,6 @@ void exec_wrapper(bool print_flag) {
   if(cpu.INTR && cpu.eflags.IF){
     cpu.INTR = false;
     raise_intr(TIMER_IRQ,cpu.eip);
-    Log("int\n");
     update_eip();
   }
 
