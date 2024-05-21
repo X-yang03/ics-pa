@@ -44,8 +44,10 @@ int sys_none(){
   return 1;
 }
 
+extern int mm_brk(uint32_t new_brk);
 int sys_brk(int addr){
-  return 0;
+  return mm_brk(addr);
+  //return 0;
 }
 
 int sys_open(const char *pathname, int flags, int mode){
