@@ -16,7 +16,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   decoding.jmp_eip = (t1 << 16)| (0xffff & t0);
   decoding.is_jmp = 1;
   if(NO == 32){
-    Log("time int\n");
+    Log("time int eip %08x\n",decoding.jmp_eip);
   }
 }
 
