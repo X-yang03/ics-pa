@@ -108,7 +108,7 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
 
   _RegSet tf;
   tf.cs=8;
-  tf.eflags=0x02;
+  tf.eflags=0x02 | FL_IF;
   tf.eip=(uintptr_t)entry; // 返回地址
   void* ptf=(void*)(ustack.end-16-sizeof(tf));
   memcpy(ptf,(void*)&tf,sizeof(tf));
