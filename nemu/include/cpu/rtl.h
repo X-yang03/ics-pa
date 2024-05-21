@@ -221,18 +221,18 @@ static inline void rtl_load_cr(rtlreg_t* dest,int r){
     case 3: *dest=cpu.cr3; break;
     default:assert(0);
   }
-  printf("r:%d cpu.cr0: %08x  cpu.cr3: %08x\n",r,cpu.cr0,cpu.cr3);
+  //printf("r:%d cpu.cr0: %08x  cpu.cr3: %08x\n",r,cpu.cr0,cpu.cr3);
   return;
 }
 
 static inline void rtl_store_cr(int r,const rtlreg_t* src){
-  printf("before r:%d cpu.cr0: %08x  cpu.cr3: %08x\n",r,cpu.cr0,cpu.cr3);
+  //printf("before r:%d cpu.cr0: %08x  cpu.cr3: %08x\n",r,cpu.cr0,cpu.cr3);
   switch (r){
     case 0: cpu.cr0=*src; break;
     case 3: cpu.cr3=*src; break;
     default:assert(0);
   }
-  printf("after r:%d cpu.cr0: %08x  cpu.cr3: %08x\n",r,cpu.cr0,cpu.cr3);
+  //printf("after r:%d cpu.cr0: %08x  cpu.cr3: %08x\n",r,cpu.cr0,cpu.cr3);
   return;
 }
 
