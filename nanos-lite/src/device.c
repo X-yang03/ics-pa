@@ -22,6 +22,10 @@ size_t events_read(void *buf, size_t len) {
     unsigned long time = _uptime();
     sprintf(buf, "t %d\n", time);
   }
+  if(key==_KEY_F12 && down){//按下F12，切换游戏
+    extern void switch_game();
+    switch_game();
+  }
   return strlen(buf);
 }
 

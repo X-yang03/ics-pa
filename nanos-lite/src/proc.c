@@ -6,6 +6,7 @@ static PCB pcb[MAX_NR_PROC];
 static int nr_proc = 0;
 PCB *current = NULL;
 static int hello_time = 0;
+static int current_game = 0;
 
 uintptr_t loader(_Protect *as, const char *filename);
 
@@ -25,6 +26,11 @@ void load_prog(const char *filename) {
   stack.end = stack.start + sizeof(pcb[i].stack);
 
   pcb[i].tf = _umake(&pcb[i].as, stack, stack, (void *)entry, NULL, NULL);
+}
+
+void switch_game(){
+  current_game = 2 - current_game;
+  Log("current_game=%d\n",current_game);
 }
 
 _RegSet* schedule(_RegSet *prev) {
