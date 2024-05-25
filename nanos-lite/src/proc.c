@@ -36,7 +36,8 @@ void switch_game(){
 _RegSet* schedule(_RegSet *prev) {
   current->tf = prev;
   //current = &pcb[0];
-  current = ((hello_time++)%1000 == 0 ? &pcb[1] : &pcb[0]);
+  Log("schedule current_game=%d\n",current_game);
+  current = ((hello_time++)%1000 == 0 ? &pcb[1] : &pcb[current_game]);
   _switch(&current->as);
   return current->tf;
 }
