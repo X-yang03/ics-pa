@@ -1,6 +1,7 @@
 #include "FLOAT.h"
 #include <stdint.h>
 #include <assert.h>
+
 union _float{
     struct {
       uint32_t man : 23;
@@ -9,7 +10,6 @@ union _float{
     };
     uint32_t val;
 };
-
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
 
