@@ -2,14 +2,16 @@
 #include <stdint.h>
 #include <assert.h>
 
+
+
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-  assert(0);
-  return 0;
+
+  return ((int64_t)a * (int64_t)b) >> 16;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-  assert(0);
-  return 0;
+  assert(b!=0)
+  return ((int64_t)a / (int64_t)b) << 16;
 }
 
 FLOAT f2F(float a) {
@@ -22,14 +24,16 @@ FLOAT f2F(float a) {
    * stack. How do you retrieve it to another variable without
    * performing arithmetic operations on it directly?
    */
+  int F = int(a * (2^16));
 
-  assert(0);
-  return 0;
+
+  //assert(0);
+  return F;
 }
 
 FLOAT Fabs(FLOAT a) {
-  assert(0);
-  return 0;
+  
+  return (a & 0x80000000)? -a : a;
 }
 
 /* Functions below are already implemented */
