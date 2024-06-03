@@ -38,6 +38,8 @@ make_EHelper(shr);
 make_EHelper(sar);
 make_EHelper(test);
 make_EHelper(not);
+make_EHelper(shld);
+make_EHelper(shrd);
 
 make_EHelper(call);
 make_EHelper(ret);
