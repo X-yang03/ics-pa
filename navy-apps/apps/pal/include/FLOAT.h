@@ -5,6 +5,15 @@
 
 typedef int FLOAT;
 
+union _float{
+    struct {
+      uint32_t man : 23;
+      uint32_t exp : 8;
+      uint32_t sign : 1;
+    };
+    uint32_t val;
+};
+
 static inline int F2int(FLOAT a) {
   
   return a>>16;
