@@ -24,11 +24,24 @@ FLOAT f2F(float a) {
    * stack. How do you retrieve it to another variable without
    * performing arithmetic operations on it directly?
    */
-  int F = int(a * (2^16));
-
-
-  //assert(0);
-  return F;
+  //int F = int(a * (2^16));
+  //return F;
+  union _float f;
+  f.val = *((uint32_t*)(void*)&a);
+  int exp = f.exp - 127;
+  FLOAT ret = 0;
+  if (exp == 128)
+    assert(0);
+  if (exp >= 0) {
+    int mov = 7 - exp;
+    if (mov >= 0)
+      ret = (f.man | (1 << 23)) >> mov;
+    else
+      ret = (f.man | (1 << 23)) << (-mov);
+  }
+  else
+    return 0;
+  return f.sign == 0 ? ret : -ret;
 }
 
 FLOAT Fabs(FLOAT a) {
