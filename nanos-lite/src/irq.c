@@ -13,8 +13,7 @@ static _RegSet* do_event(_Event e, _RegSet* r) {
       return schedule(r);
     case _EVENT_IRQ_TIME:
      // Log("Timer interupt!\n");
-      //return schedule(r);
-      return 0;
+      return schedule(r);
     default: panic("Unhandled event ID = %d", e.event);
   }
   
