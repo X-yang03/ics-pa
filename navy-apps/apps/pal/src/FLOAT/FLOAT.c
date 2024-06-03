@@ -1,7 +1,14 @@
 #include "FLOAT.h"
 #include <stdint.h>
 #include <assert.h>
-
+union _float{
+    struct {
+      uint32_t man : 23;
+      uint32_t exp : 8;
+      uint32_t sign : 1;
+    };
+    uint32_t val;
+};
 
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
@@ -15,24 +22,21 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
   assert(b != 0);
   FLOAT x = Fabs(a);
   FLOAT y = Fabs(b);
-  FLOAT z = x / y;
+  FLOAT ret = x / y;
   x = x % y;
 
-  for (int i = 0; i < 16; i++)
-  {
+  for (int i = 0; i < 16; i++) {
     x <<= 1;
-    z <<= 1;
-    if (x >= y)
-    {
+    ret <<= 1;
+    if (x >= y) {
       x -= y;
-      z++;
+      ret++;
     }
   }
-  if (((a ^ b) & 0x80000000) == 0x80000000)
-  {
-    z = -z;
+  if (((a ^ b) & 0x80000000) == 0x80000000) {
+    ret = -ret;
   }
-  return z;
+  return ret;
 }
 
 FLOAT f2F(float a) {
