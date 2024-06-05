@@ -46,10 +46,16 @@ FLOAT f2F(float a) {
    * stack. How do you retrieve it to another variable without
    * performing arithmetic operations on it directly?
    */
-  //int F = int(a * (2^16));
-  //return F;
+  union {
+      float f;
+      uint32_t u;
+  } temp;
+
+  temp.f = a; // 将 float 转换为 uint32_t
+  
   union _float f;
-  f.val = (uint32_t)a;
+  f.val = temp.u; // 将 uint32_t 存储到自定义结构中
+  //f.val = (uint32_t)a;
 
   //f.val = *((uint32_t*)(void*)&a);
   int exp = f.exp - 127;
