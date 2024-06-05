@@ -8,7 +8,7 @@ union _float{
       uint32_t exp : 8;
       uint32_t sign : 1;
     };
-    uint32_t val;
+    float val;
 };
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
@@ -54,7 +54,7 @@ FLOAT f2F(float a) {
   temp.f = a; // 将 float 转换为 uint32_t
   
   union _float f;
-  f.val = temp.u; // 将 uint32_t 存储到自定义结构中
+  f.val = a; // 将 uint32_t 存储到自定义结构中
   //f.val = (uint32_t)a;
 
   //f.val = *((uint32_t*)(void*)&a);
