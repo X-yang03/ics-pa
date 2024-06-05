@@ -46,28 +46,22 @@ FLOAT f2F(float a) {
    * stack. How do you retrieve it to another variable without
    * performing arithmetic operations on it directly?
    */
-  union {
-      float f;
-      uint32_t u;
-  } temp;
-
-  temp.f = a; // 将 float 转换为 uint32_t
   
   union _float f;
   f.val = a; // 将 uint32_t 存储到自定义结构中
-  //f.val = (uint32_t)a;
-
-  //f.val = *((uint32_t*)(void*)&a);
+  
   int exp = f.exp - 127;
   FLOAT ret = 0;
-  if (exp == 128)
+  if (exp == 128) // nan or inf
     assert(0);
   if (exp >= 0) {
-    int mov = 7 - exp;
-    if (mov >= 0)
-      ret = (f.man | (1 << 23)) >> mov;
-    else
-      ret = (f.man | (1 << 23)) << (-mov);
+    int offset = 7 - exp; 
+    uint32_t frac = f.man | (1 << 23);
+    ret = offset >= 0 ? frac >> offset: frac << (-offset);
+    // if (offset >= 0)
+    //   ret = (f.man | (1 << 23)) >> offset;
+    // else
+    //   ret = (f.man | (1 << 23)) << (-offset);
   }
   else
     return 0;
