@@ -1,5 +1,6 @@
 #include "common.h"
 #include "device/mmio.h"
+#include<unistd.h>
 
 #define MMIO_SPACE_MAX (512 * 1024)
 #define NR_MAP 8
@@ -34,6 +35,7 @@ void* add_mmio_map(paddr_t addr, int len, mmio_callback_t callback) {
 
 /* bus interface */
 int is_mmio(paddr_t addr) {
+  sleep(10);
   int i;
   for (i = 0; i < nr_map; i ++) {
     if (addr >= maps[i].low && addr <= maps[i].high) {
