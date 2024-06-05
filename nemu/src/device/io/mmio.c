@@ -33,16 +33,21 @@ void* add_mmio_map(paddr_t addr, int len, mmio_callback_t callback) {
   return space_base;
 }
 
+int buffer_map[3] = {0};
+
 /* bus interface */
 int is_mmio(paddr_t addr) {
-  for(int j=0;j<100;j++){
-    int a = 1;
-    int b=2;
-    a = a+b;
+  for(int j=0;j<3;j++){
+    if (addr <= maps[buffer_map[j]].high && addr >= maps[buffer_map[j]].low) {
+      return buffer_map[j];
+    }
   }
   int i;
   for (i = 0; i < nr_map; i ++) {
-    if (addr >= maps[i].low && addr <= maps[i].high) {
+    if (addr <= maps[i].high && addr >= maps[i].low) {
+      buffer_map[2] = buffer_map[1];
+      buffer_map[1] = buffer_map[0];
+      buffer_map[0] = i;
       return i;
     }
   }
