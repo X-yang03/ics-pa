@@ -12,13 +12,10 @@ union _float{
 };
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-
   return ((int64_t)a * (int64_t)b) >> 16;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-  // assert(b!=0);
-  // return ((int64_t)a / (int64_t)b) << 16;
   assert(b != 0);
   FLOAT x = Fabs(a);
   FLOAT y = Fabs(b);
@@ -52,7 +49,9 @@ FLOAT f2F(float a) {
   //int F = int(a * (2^16));
   //return F;
   union _float f;
-  f.val = *((uint32_t*)(void*)&a);
+  f.val = (uint32_t)a;
+
+  //f.val = *((uint32_t*)(void*)&a);
   int exp = f.exp - 127;
   FLOAT ret = 0;
   if (exp == 128)
